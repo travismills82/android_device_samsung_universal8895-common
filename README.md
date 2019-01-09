@@ -1,0 +1,1 @@
+android_device_samsung_universal8895-common
