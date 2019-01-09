@@ -1,0 +1,69 @@
+#Samsung specific Keylayout
+
+# input_fw defined
+key 195   USER
+
+# input_fw for voice wakeup
+key 198   VOICE_WAKEUP_LPSD
+key 199   VOICE_WAKEUP
+
+# samsung 
+key 231   CALL #(CHN FOLDER MODEL)
+key 252   USER
+key 253   DOUBLE_TAP
+key 254   APP_SWITCH
+
+#input_fw gamepad button
+key 319   BUTTON_GAME
+
+#input_fw 2015-12-24 gamepad button #(KEY_GAMES 0x01a1)
+#(request by iss.song, Graphics R&D Group) 
+key 417 BUTTON_GAME
+
+key 430   MESSAGE
+
+key 452   CAM_QUICK_REAR
+key 453   CAM_QUICK_FRONT
+key 454   2ND_SCREEN_WAKEUP
+
+# key 455 used for blackscreenUI
+# key 456 KEY_BLACK_UI_QUICKAPP_ACCESS
+# key 457 KEY_BLACK_UI_DIRECT_INDICATOR
+
+# input_fw for swipe gestures from sides, used for wakeup
+key 458 SIDE_GESTURE_RIGHT
+key 459 SIDE_GESTURE_LEFT
+
+# input_fw Adaptive noise cancelling
+key 460 ANC
+
+key 522	STAR
+key 523	POUND
+
+# samsung camera
+key 528   FOCUS
+
+#key 531   TOUCHPAD_ON
+#key 532   TOUCHPAD_OFF
+
+key 548 NETWORK_SEL #(CHN FOLDER MODEL)
+key 549 3G          #(CHN FOLDER MODEL)
+key 550 WATCH       #(CHN FOLDER MODEL)
+key 551 ENDCALL     #(CHN FOLDER MODEL)
+
+#key 576 do not use (specific value used by camera project) - refer to InputReader.cpp
+
+
+# samsung
+key 672   EMERGENCY
+
+# input_fw Intelligent Key for Dream
+key 703   WINK
+
+key 708 QPANEL_ON_OFF
+
+# 753~ 760 is key event for special event
+#key 753   KEY_CP_GRIP
+#key 754   KEY_TSP_NONE_KEY2
+key 755   TA_CHARGING
+

@@ -1,0 +1,4 @@
+allow system_app sysfs_mdnie_writable:{ file lnk_file } { write rw_file_perms };
+allow system_app sysfs_mdnie_writable:dir search;
+
+allow system_app data_user_file:dir rw_dir_perms;
