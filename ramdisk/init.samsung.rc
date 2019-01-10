@@ -625,7 +625,7 @@ service sec-sh /system/bin/sh /system/etc/init.sec.boot.sh
     oneshot
 
 # MobiCore startup
-service mobicore /system/bin/mcDriverDaemon -r /system/app/FFFFFFFF000000000000000000000001.drbin -r /system/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin -r /system/app/mcRegistry/ffffffffd00000000000000000000016.tlbin
+service mobicore /system/vendor/bin/mcDriverDaemon -r /system/vendor/app/FFFFFFFF000000000000000000000001.drbin -r /system/vendor/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin -r /system/vendor/app/mcRegistry/ffffffffd00000000000000000000016.tlbin
     class core
     user system
     group system
