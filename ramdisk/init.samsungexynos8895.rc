@@ -88,6 +88,7 @@ on post-fs-data
     chown system radio /sys/class/camera/ois/oisfw
     chown system radio /sys/class/camera/ois/ois_diff
     chown system radio /sys/class/camera/ois/autotest
+    chown system radio /sys/class/camera/ois/autotest_2nd
     chown cameraserver cameraserver /sys/class/camera/ois/ois_exif
     chown system radio /sys/class/camera/secure/iris_camfw
     chown system radio /sys/class/camera/secure/iris_camfw_full
@@ -507,6 +508,8 @@ on boot
 on fs
     mount_all /fstab.samsungexynos8895
     setprop ro.crypto.fuse_sdcard true
+    chown radio system /efs
+    restorecon_recursive /efs
 
 # Permissions for ION
     chmod 0660 /sys/class/ion_cma/ion_video_ext/isolated
@@ -535,6 +538,7 @@ on fs
     chown system system /sys/class/lcd/panel/SVC_OCTA
     chown system system /sys/class/lcd/panel/xtalk_mode
     chown system system /sys/class/lcd/panel/poc
+    chown system system /sys/class/lcd/panel/poc_onoff
 
 # Permissions for LCD COPR
     chown system system /sys/class/lcd/panel/copr
@@ -722,8 +726,11 @@ on fs
     chown system system /sys/class/sensors/hrm_sensor/hrm_debug
     chown system system /sys/class/sensors/hrm_sensor/write_reg
     chown system system /sys/class/sensors/hrm_sensor/read_reg
+    chown system system /sys/class/sensors/hrm_sensor/osc_trim
     chmod 0600 /dev/max_hrm
     chown system system /dev/max_hrm
+    chown system system /efs/FactoryApp/hrm_osc_trim
+    chmod 0644 /efs/FactoryApp/hrm_osc_trim
 
 # Grip_sensor
     chown system radio /sys/class/sensors/grip_sensor/name

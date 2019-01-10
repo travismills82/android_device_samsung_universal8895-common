@@ -50,10 +50,9 @@
 
 # mscalers
 /dev/video50              0660   media      graphics
-/dev/m2m1shot_scaler0     0660   mediacodec      drmrpc
+/dev/m2m1shot_scaler0     0660   cameraserver m2mscaler
 
 /dev/video55              0666   system     graphics
-/dev/g2d                  0660   system     graphics
 /dev/fimg2d               0666   system     graphics
 /dev/i2c-2                0660   system     system
 /dev/HPD                  0660   system     system
@@ -188,15 +187,3 @@
 
 # Reactivation lock
 /dev/block/platform/11120000.ufs/by-name/STEADY    0660    system    system
-
-# MobiCore
-/dev/mobicore             0700   system     system
-/dev/mobicore-user        0666   radio     system
-
-# Secure MEM driver
-/dev/s5p-smem             0660   system     system
-
-# Fingerprint Sensor
-/dev/vfsspi               0660   system     system
-/dev/esfp0                0660   system     system
-/dev/goodix_fp            0660   system     system
