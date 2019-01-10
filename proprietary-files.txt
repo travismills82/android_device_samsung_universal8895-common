@@ -29,13 +29,13 @@
 #~ lib64/libspeexresampler.so
 lib/libtinyalsa.so
 lib64/libtinyalsa.so
-lib/libtinycompress.so
+vendor/lib/libtinycompress.so
 etc/firmware/cs47l92-dsp1-dsd-176.4kHz.wmfw
 etc/firmware/cs47l92-dsp1-dsd-352.8kHz.wmfw
 vendor/firmware/AP_AUDIO_SLSI.bin
 vendor/firmware/APBargeIn_AUDIO_SLSI.bin
 vendor/firmware/APBiBF_AUDIO_SLSI.bin
-vendor/etc/audio_effects.conf
+etc/audio_effects.conf
 vendor/etc/audio_policy.conf
 
 # AUDIOFX
@@ -60,11 +60,8 @@ vendor/etc/audio_policy.conf
 #~ lib/libHMT.so
 
 # Bluetooth
-vendor/firmware/bcm4361A0_V0128.0000.hcd
-vendor/firmware/bcm4361B0_V0235.0245_murata.hcd
-vendor/firmware/bcm4361B0_V0235.0245_murata_es1.hcd
-vendor/firmware/bcm4361B0_V0235.0246_semco_e31.hcd
-vendor/firmware/bcm4361B0_V0235.0247_semco.hcd
+vendor/firmware/bcm4361B0_V0278.0325_murata.hcd
+vendor/firmware/bcm4361B0_V0278.0327_semco.hcd
 
 # Camera
 #lib/hw/camera.universal8895.so
@@ -81,7 +78,6 @@ vendor/firmware/bcm4361B0_V0235.0247_semco.hcd
 #lib64/libuniplugin.so
 #lib/libhwjpeg.so
 #lib64/libhwjpeg.so
-
 #lib/libexynosgscaler.so
 #lib64/libexynosgscaler.so
 #lib/libexynosscaler.so
@@ -99,13 +95,12 @@ vendor/lib64/mediadrm/libdrmclearkeyplugin.so
 vendor/lib/mediadrm/libwvdrmengine.so
 
 # Fingerprint
-lib64/libbauthserver.so
-lib64/libbauthtzcommon.so
-lib64/libegis_fp_normal_sensor_test.so
-lib64/libsynaFpSensorTestNwd.so
+vendor/lib64/libbauthserver.so
+vendor/lib64/libbauthtzcommon.so
+vendor/lib64/libegis_fp_normal_sensor_test.so
+vendor/lib64/libsynaFpSensorTestNwd.so
 bin/tlc_server
 lib64/libtlc_tz_iccc.so
-lib64/libtlc_tz_ccm_inapptwo.so
 lib64/libtlc_tz_keystore.so
 lib64/libtlc_spay.so
 lib64/libtlc_tz_dcm.so
@@ -116,7 +111,7 @@ lib64/libtlc_tima_pkm.so
 lib/libtlc_tz_iccc.so
 lib/libtlc_tz_keystore.so
 lib/libtlc_spay.so
-lib/libbauthtzcommon.so
+vendor/lib/libbauthtzcommon.so
 lib/libtlc_tz_dcm.so
 lib/libtlc_direct_comm.so
 lib/libtlc_tima_atn.so
@@ -127,12 +122,12 @@ vendor/lib64/libtlc_comm.so
 vendor/lib/libtlc_comm.so
 
 # GPS
-bin/gps.cer
-bin/gpsd
-bin/lhd
-lib64/hw/gps.default.so
-lib/libwrappergps.so
-lib64/libwrappergps.so
+vendor/etc/gnss/gps.cer
+vendor/bin/hw/gpsd
+vendor/bin/hw/lhd
+vendor/lib64/hw/gps.default.so
+vendor/lib/libwrappergps.so
+vendor/lib64/libwrappergps.so
 lib/libfloatingfeature.so
 lib64/libfloatingfeature.so
 
@@ -145,11 +140,8 @@ vendor/lib64/libOpenCL.so
 vendor/lib64/libOpenCv.so
 lib/libacryl.so
 lib64/libacryl.so
-
-#vendor/lib/hw/vulkan.exynos5.so
-#vendor/lib64/hw/vulkan.exynos5.so
-#vendor/lib/libOpenCL.so.1.1
-#vendor/lib64/libOpenCL.so.1.1
+#lib/libvulkan.so
+#lib64/libvulkan.so
 
 # Media
 vendor/firmware/companion_2l2_master_setfile.bin
@@ -188,21 +180,25 @@ vendor/firmware/dsm.bin
 vendor/firmware/dsm_tune.bin
 
 # Mobicore
-app/FFFFFFFF000000000000000000000001.drbin
+vendor/app/mcRegistry/07010000000000000000000000000000.tlbin
+vendor/app/mcRegistry/08130000000000000000000000000000.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000000e.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000000f.tlbin
+vendor/app/mcRegistry/ffffffff00000000000000000000002f.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000012.tlbin
+vendor/app/mcRegistry/ffffffff000000000000000000000013.tlbin
+vendor/app/mcRegistry/FFFFFFFF000000000000000000000001.drbin
+vendor/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin
+vendor/app/mcRegistry/ffffffffd0000000000000000000000e.tlbin
+vendor/app/mcRegistry/ffffffffd00000000000000000000014.tlbin
+vendor/app/mcRegistry/ffffffffd00000000000000000000016.tlbin
 app/mcRegistry/00060308060501020000000000000000.tlbin
-app/mcRegistry/0706000000000000000000000000004d.tlbin
-app/mcRegistry/07010000000000000000000000000000.tlbin
-app/mcRegistry/08130000000000000000000000000000.tlbin
 app/mcRegistry/ffffffff00000000000000000000000a.tlbin
 app/mcRegistry/ffffffff00000000000000000000000c.tlbin
 app/mcRegistry/ffffffff00000000000000000000000d.tlbin
-app/mcRegistry/ffffffff00000000000000000000000e.tlbin
-app/mcRegistry/ffffffff00000000000000000000000f.tlbin
 app/mcRegistry/ffffffff00000000000000000000003e.tlbin
 app/mcRegistry/ffffffff000000000000000000000004.tlbin
 app/mcRegistry/ffffffff000000000000000000000005.tlbin
-app/mcRegistry/ffffffff000000000000000000000012.tlbin
-app/mcRegistry/ffffffff000000000000000000000013.tlbin
 app/mcRegistry/ffffffff000000000000000000000016.tlbin
 app/mcRegistry/ffffffff000000000000000000000017.tlbin
 app/mcRegistry/ffffffff000000000000000000000030.tlbin
@@ -212,16 +208,12 @@ app/mcRegistry/ffffffff000000000000000000000045.tlbin
 app/mcRegistry/ffffffff000000000000000000000047.tlbin
 app/mcRegistry/ffffffff000000000000000000000059.tlbin
 app/mcRegistry/ffffffff000000000000000000000060.tlbin
-app/mcRegistry/ffffffffd0000000000000000000000a.tlbin
-app/mcRegistry/ffffffffd0000000000000000000000e.tlbin
 app/mcRegistry/ffffffffd0000000000000000000001a.tlbin
 app/mcRegistry/ffffffffd00000000000000000000004.tlbin
-app/mcRegistry/ffffffffd00000000000000000000014.tlbin
-app/mcRegistry/ffffffffd00000000000000000000016.tlbin
 app/mcRegistry/ffffffffd00000000000000000000017.tlbin
 app/mcRegistry/fffffffff0000000000000000000001b.tlbin
 app/mcRegistry/fffffffff0000000000000000000001e.tlbin
-bin/mcDriverDaemon
+vendor/bin/mcDriverDaemon
 vendor/lib/libMcRegistry.so
 vendor/lib64/libMcRegistry.so
 vendor/lib/libMcClient.so
@@ -230,8 +222,8 @@ vendor/lib64/libMcClient.so
 # NFC
 etc/nfc/SGP/sec_s3nrn82_rfreg.bin
 etc/nfc/sec_s3nrn82_rfreg.bin
-lib/hw/nfc_nci.universal8895.so
-lib64/hw/nfc_nci.universal8895.so
+vendor/lib/hw/nfc_nci.default.so
+vendor/lib64/hw/nfc_nci.default.so
 vendor/firmware/nfc/sec_s3nrn82_firmware.bin
 
 # OMX
@@ -259,50 +251,40 @@ lib/omx/libOMX.Exynos.VP9.Encoder.so
 lib/omx/libOMX.Exynos.WMV.Decoder.so
 
 # Radio
-bin/cbd
-bin/rild
+vendor/bin/hw/rild
 lib/libaudio-ril.so
 lib/libreference-ril.so
-lib/libril.so
+vendor/lib/libril.so
 lib/librilutils.so
-lib/libsec-ril.so
-lib/libsec-ril-dsds.so
+vendor/lib/libsec-ril.so
+vendor/lib/libsec-ril-dsds.so
 lib/libsecnativefeature.so
-lib/libsecril-client.so
+vendor/lib/libsecril-client.so
 lib/libxml2.so
 lib/libprotobuf-cpp-full.so
 lib64/libreference-ril.so
-lib64/libril.so
+vendor/lib64/libril.so
 lib64/librilutils.so
-lib64/libsec-ril.so
-lib64/libsec-ril-dsds.so
+vendor/lib64/libsec-ril.so
+vendor/lib64/libsec-ril-dsds.so
 lib64/libsecnativefeature.so
-lib64/libsecril-client.so
+vendor/lib64/libsecril-client.so
 lib64/libxml2.so
 lib64/libprotobuf-cpp-full.so
 
 
 
 # Sensors
-etc/sensors/hals.conf
-bin/sensorhubservice
-bin/bcm_sensorhub_a1.patch
-lib/hw/sensorhubs.universal8895.so
-lib/hw/sensors.universal8895.so
+vendor/etc/sensors/hals.conf
 lib/libsensorlistener.so
 lib/libsensorservice.so
-lib/sensors.bio.so
-lib/sensors.sensorhub.so
-lib/libsensorhub.so
-lib64/libsensorhub.so
-lib64/libhr.so
-lib64/hw/sensorhubs.universal8895.so
-lib64/hw/sensors.universal8895.so
+vendor/lib/sensors.bio.so
+vendor/lib/sensors.sensorhub.so
+vendor/lib64/libhr.so
 lib64/libsensorlistener.so
-lib64/libsensorhubservice.so
 lib64/libsensorservice.so
-lib64/sensors.bio.so
-lib64/sensors.sensorhub.so
+vendor/lib64/sensors.bio.so
+vendor/lib64/sensors.sensorhub.so
 
 # Surface Composer
 lib/libion.so
@@ -311,49 +293,28 @@ lib64/libion.so
 lib64/hw/gralloc.exynos5.so
 
 # Wifi
-etc/wifi/wldu.conf
-etc/wifi/.clminfo
-etc/wifi/bcmdhd_clm.blob
-etc/wifi/bcmdhd_mfg.bin
-etc/wifi/bcmdhd_mfg.bin_a0
-etc/wifi/bcmdhd_mfg.bin_a0_ePA
-etc/wifi/bcmdhd_mfg.bin_a1
-etc/wifi/bcmdhd_mfg.bin_b0
-etc/wifi/bcmdhd_sta.bin
-etc/wifi/bcmdhd_sta.bin_a0
-etc/wifi/bcmdhd_sta.bin_a0_ePA
-etc/wifi/bcmdhd_sta.bin_a1
-etc/wifi/bcmdhd_sta.bin_b0
-etc/wifi/nvram_mfg.txt
-etc/wifi/nvram_mfg.txt_a0
-etc/wifi/nvram_mfg.txt_a0_ePA
-etc/wifi/nvram_mfg.txt_murata_r012_a1
-etc/wifi/nvram_mfg.txt_murata_r013_b0
-etc/wifi/nvram_mfg.txt_murata_r014_b0
-etc/wifi/nvram_mfg.txt_murata_r020_b0
-etc/wifi/nvram_mfg.txt_r01a_a1
-etc/wifi/nvram_mfg.txt_r01d_b0
-etc/wifi/nvram_mfg.txt_r01f_b0
-etc/wifi/nvram_mfg.txt_r01i_b0
-etc/wifi/nvram_mfg.txt_r02a_a1
-etc/wifi/nvram_mfg.txt_r02c_a1
-etc/wifi/nvram_mfg.txt_r02g_b0
-etc/wifi/nvram_mfg.txt_r02j_b0
-etc/wifi/nvram_net.txt
-etc/wifi/nvram_net.txt_a0
-etc/wifi/nvram_net.txt_a0_ePA
-etc/wifi/nvram_net.txt_murata_r012_a1
-etc/wifi/nvram_net.txt_murata_r013_b0
-etc/wifi/nvram_net.txt_murata_r014_b0
-etc/wifi/nvram_net.txt_murata_r020_b0
-etc/wifi/nvram_net.txt_r01a_a1
-etc/wifi/nvram_net.txt_r01d_b0
-etc/wifi/nvram_net.txt_r01f_b0
-etc/wifi/nvram_net.txt_r01i_b0
-etc/wifi/nvram_net.txt_r02a_a1
-etc/wifi/nvram_net.txt_r02c_a1
-etc/wifi/nvram_net.txt_r02g_b0
-etc/wifi/nvram_net.txt_r02j_b0
+vendor/etc/wifi/bcmdhd_clm.blob
+vendor/etc/wifi/bcmdhd_mfg.bin_b0
+vendor/etc/wifi/bcmdhd_mfg.bin_b2
+vendor/etc/wifi/bcmdhd_sta.bin_b0
+vendor/etc/wifi/bcmdhd_sta.bin_b2
+vendor/etc/wifi/nvram.txt
+vendor/etc/wifi/nvram.txt_a0
+vendor/etc/wifi/nvram.txt_a0_ePA
+vendor/etc/wifi/nvram.txt_murata_r012_a1
+vendor/etc/wifi/nvram.txt_murata_r013_b0
+vendor/etc/wifi/nvram.txt_murata_r014_b0
+vendor/etc/wifi/nvram.txt_murata_r020_b0
+vendor/etc/wifi/nvram.txt_murata_r033_b0
+vendor/etc/wifi/nvram.txt_r01a_a1
+vendor/etc/wifi/nvram.txt_r01d_b0
+vendor/etc/wifi/nvram.txt_r01f_b0
+vendor/etc/wifi/nvram.txt_r01i_b0
+vendor/etc/wifi/nvram.txt_r02a_a1
+vendor/etc/wifi/nvram.txt_r02c_a1
+vendor/etc/wifi/nvram.txt_r02g_b0
+vendor/etc/wifi/wldu.conf
+vendor/etc/wifi/.clminfo
 
 #audiotest
 #~ lib/hw/audio.a2dp.default.so
