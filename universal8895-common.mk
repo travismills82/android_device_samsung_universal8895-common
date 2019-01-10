@@ -129,10 +129,6 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-service \
     libbt-vendor
 
-# cpboot daemon
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/ril/sbin/cbd:root/sbin/cbd
-
 # Radio
 PRODUCT_PACKAGES += \
     libxml2 \
