@@ -13,20 +13,20 @@
 #
 
 # Audio
-#~ lib/hw/audio.primary.universal8895.so
-#~ lib/libaudioroute.so
-#~ lib/libaudioutils.so
-#~ lib64/libaudioutils.so
-#~ lib/librecordalive.so
-#~ lib/libsamsungDiamondVoiceExtV4.so
-#~ lib/libSamsungPostProcessConvertor.so
-#~ lib/lib_SamsungRec_06003.so
-#~ lib/libsecaudioinfo.so
-#~ lib64/libsecaudioinfo.so
-#~ lib/lib_soundaliveresampler.so
-#~ lib/lib_SoundAlive_SRC384_ver300.so
-#~ lib/libspeexresampler.so
-#~ lib64/libspeexresampler.so
+#lib/hw/audio.primary.universal8895.so
+#lib/libaudioroute.so
+#lib/libaudioutils.so
+#lib64/libaudioutils.so
+#lib/librecordalive.so
+#lib/libsamsungDiamondVoice.so
+#lib/libSamsungPostProcessConvertor.so
+#lib/lib_SamsungRec_06003.so
+#lib/libsecaudioinfo.so
+#lib64/libsecaudioinfo.so
+#lib/lib_soundaliveresampler.so
+#lib/lib_SoundAlive_SRC384_ver300.so
+#lib/libspeexresampler.so
+#lib64/libspeexresampler.so
 lib/libtinyalsa.so
 lib64/libtinyalsa.so
 vendor/lib/libtinycompress.so
@@ -39,25 +39,25 @@ etc/audio_effects.conf
 vendor/etc/audio_policy.conf
 
 # AUDIOFX
-#~ lib/soundfx/libeffectproxy.so
-#~ lib/soundfx/libaudioeffectoffload.so
-#~ lib/soundfx/libbundlewrapper.so
-#~ lib/soundfx/libreverbwrapper.so
-#~ lib/soundfx/libvisualizer.so
-#~ lib/soundfx/libdownmix.so
-#~ lib/libmysound.so
-#~ lib/soundfx/libmyspace.so
-#~ lib/libaudiosa.so
-#~ lib/soundfx/libaudiosaplus_sec.so
-#~ lib/soundfx/libldnhncr.so
-#~ lib/libsamsungSoundbooster_plus.so
-#~ lib/soundfx/libaudiopreprocessing.so
-#~ lib/lib_SoundAlive_3DPosition_ver202.so
-#~ lib/lib_SA_GoogleFX_ver124b.so
-#~ lib/lib_SoundAlive_AlbumArt_ver105.so
-#~ lib/lib_SoundAlive_play_plus_ver200.so
-#~ lib/lib_SoundBooster_ver800.so
-#~ lib/libHMT.so
+#vendor/lib/soundfx/libeffectproxy.so
+#lib/soundfx/libaudioeffectoffload.so
+#vendor/lib/soundfx/libbundlewrapper.so
+#vendor/lib/soundfx/libreverbwrapper.so
+#vendor/lib/soundfx/libvisualizer.so
+#vendor/lib/soundfx/libdownmix.so
+#lib/soundfx/libmysound.so
+#lib/soundfx/libmyspace.so
+#lib/soundfx/libaudiosa.so
+#lib/soundfx/libaudiosaplus_sec.so
+#vendor/lib/soundfx/libldnhncr.so
+#lib/soundfx/libsamsungSoundbooster_plus.so
+#vendor/lib/soundfx/libaudiopreprocessing.so
+#lib/lib_SoundAlive_3DPosition_ver202.so
+#lib/lib_SA_GoogleFX_ver124b.so
+#lib/lib_SoundAlive_AlbumArt_ver105.so
+#lib/lib_SoundAlive_play_plus_ver200.so
+#lib/lib_SoundBooster_ver800.so
+#lib/libHMT.so
 
 # Bluetooth
 vendor/firmware/bcm4361B0_V0278.0325_murata.hcd
