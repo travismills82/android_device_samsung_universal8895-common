@@ -33,6 +33,12 @@ on init
     #Google FRP solution
     symlink /dev/block/platform/11120000.ufs/by-name/PERSISTENT /dev/block/persistent
 
+    # Link /odm to /system/odm for devices without a odm partition.
+    symlink /system/odm /odm
+
+    # Link /vendor to /system/vendor for devices without a vendor partition.
+    symlink /system/vendor /vendor
+
 on post-fs-data
 # Log data folder
     mkdir /data/log 0771 radio system
