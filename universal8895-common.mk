@@ -250,7 +250,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/gps/gps.conf:system/etc/gps.conf \
     $(LOCAL_PATH)/configs/gps/gps.xml:system/etc/gps.xml \
-    $(LOCAL_PATH)/configs/gps/lhd.conf:system/etc/lhd.conf
+    $(LOCAL_PATH)/configs/gps/lhd.conf:system/vendor/etc/sensor/lhd.conf
 
 # Touchscreen
 PRODUCT_COPY_FILES += \
