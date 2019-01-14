@@ -316,6 +316,10 @@ vendor/etc/wifi/nvram.txt_r02g_b0
 vendor/etc/wifi/wldu.conf
 vendor/etc/wifi/.clminfo
 
+# Vendor/media
+vendor/media/LMspeed_508.emd
+vendor/media/PFFprec_600.emd
+
 #audiotest
 #~ lib/hw/audio.a2dp.default.so
 #~ lib/hw/audio.playback_record.default.so
