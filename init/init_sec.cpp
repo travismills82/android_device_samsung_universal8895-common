@@ -87,71 +87,71 @@ void vendor_load_properties()
     switch (variant) {
     case VARIANT_G950F:
         /* dreamltexx */
-        fingerprint = "samsung/dreamltexx/dreamlte:7.0/NRD90M/G950FXXU1AQH3:user/release-keys";
-        description = "dreamltexx-user 7.0 NRD90M G950FXXU1AQH3 release-keys";
+        fingerprint = "samsung/dreamltexx/dreamlte:8.0.0/R16NW/G950FXXU3CRGH:user/release-keys";
+        description = "dreamltexx-user 8.0.0 R16NW G950FXXU3CRGH release-keys";
         model = "SM-G950F";
         device = "dreamltexx";
         break;
     case VARIANT_G950S:
         /* dreamlteskt */
-        fingerprint = "samsung/dreamlteskt/dreamlte:7.0/NRD90M/G950SXXU1AQH3:user/release-keys";
-        description = "dreamlteskt-user 7.0 NRD90M G950SXXU1AQH3 release-keys";
+        fingerprint = "samsung/dreamlteskt/dreamlte:8.0.0/R16NW/G950SXXU3CRGH:user/release-keys";
+        description = "dreamlteskt-user 8.0.0 R16NW G950SXXU1AQH3 release-keys";
         model = "SM-G950S";
         device = "dreamlteskt";
         break;
     case VARIANT_G950K:
         /* dreamltektt */
-        fingerprint = "samsung/dreamltektt/dreamlte:7.0/NRD90M/G950KXXU1AQH3:user/release-keys";
-        description = "dreamltektt-user 7.0 NRD90M G950KXXU1AQH3 release-keys";
+        fingerprint = "samsung/dreamltektt/dreamlte:8.0.0/R16NW/G950KXXU3CRGH:user/release-keys";
+        description = "dreamltektt-user 8.0.0 R16NW G950KXXU3CRGH release-keys";
         model = "SM-G950K";
         device = "dreamltektt";
         break;
     case VARIANT_G950L:
         /* dreamltelgt */
-        fingerprint = "samsung/dreamltelgt/dreamlte:7.0/NRD90M/G950LXXU1AQH3:user/release-keys";
-        description = "dreamltelgt-user 7.0 NRD90M G950LXXU1AQH3 release-keys";
+        fingerprint = "samsung/dreamltelgt/dreamlte:8.0.0/R16NW/G950LXXU3CRGH:user/release-keys";
+        description = "dreamltelgt-user 8.0.0 R16NW G950LXXU3CRGH release-keys";
         model = "SM-G950L";
         device = "dreamltelgt";
         break;
     case VARIANT_G950W8:
         /* dreamltebmc */
-        fingerprint = "samsung/dreamltebmc/dreamlte:7.0/NRD90M/G950W8XXU1AQH3:user/release-keys";
-        description = "dreamltebmc-user 7.0 NRD90M G950W8XXU1AQH3 release-keys";
+        fingerprint = "samsung/dreamltebmc/dreamlte:8.0.0/R16NW/G950W8XXU3CRGH:user/release-keys";
+        description = "dreamltebmc-user 8.0.0 R16NW G950W8XXU3CRGH release-keys";
         model = "SM-G950W8";
         device = "dreamltebmc";
         break;
     case VARIANT_G955F:
         /* dream2ltexx */
-        fingerprint = "samsung/dream2ltexx/dream2lte:7.0/NRD90M/G955FXXU1AQH3:user/release-keys";
-        description = "dream2ltexx-user 7.0 NRD90M G955FXXU1AQH3 release-keys";
+        fingerprint = "samsung/dream2ltexx/dream2lte:8.0.0/R16NW/G955FXXU3CRGH:user/release-keys";
+        description = "dream2ltexx-user 8.0.0 R16NW G955FXXU3CRGH release-keys";
         model = "SM-G955F";
         device = "dream2ltexx";
         break;
     case VARIANT_G955S:
         /* dream2lteskt */
-        fingerprint = "samsung/dream2lteskt/dream2lte:7.0/NRD90M/G955SXXU1AQH3:user/release-keys";
-        description = "dream2lteskt-user 7.0 NRD90M G955SXXU1AQH3 release-keys";
+        fingerprint = "samsung/dream2lteskt/dream2lte:8.0.0/R16NW/G955SXXU3CRGH:user/release-keys";
+        description = "dream2lteskt-user 8.0.0 R16NW G955SXXU3CRGH release-keys";
         model = "SM-G955S";
         device = "dream2lteskt";
         break;
     case VARIANT_G955K:
         /* dream2ltektt */
-        fingerprint = "samsung/dream2ltektt/dream2lte:7.0/NRD90M/G955KXXU1AQH3:user/release-keys";
-        description = "dream2ltektt-user 7.0 NRD90M G955KXXU1AQH3 release-keys";
+        fingerprint = "samsung/dream2ltektt/dream2lte:8.0.0/R16NW/G955KXXU3CRGH:user/release-keys";
+        description = "dream2ltektt-user 8.0.0 R16NW G955KXXU3CRGH release-keys";
         model = "SM-G955K";
         device = "dream2ltektt";
         break;
     case VARIANT_G955L:
         /* dream2ltelgt */
-        fingerprint = "samsung/dream2ltelgt/dream2lte:7.0/NRD90M/G955LXXU1AQH3:user/release-keys";
-        description = "dream2ltelgt-user 7.0 NRD90M G955LXXU1AQH3 release-keys";
+        fingerprint = "samsung/dream2ltelgt/dream2lte:8.0.0/R16NW/G955LXXU3CRGH:user/release-keys";
+        description = "dream2ltelgt-user 8.0.0 R16NW G955LXXU3CRGH release-keys";
         model = "SM-G955L";
         device = "dream2ltelgt";
         break;
     case VARIANT_G955W8:
         /* dream2ltebmc */
-        fingerprint = "samsung/dream2ltebmc/dream2lte:7.0/NRD90M/G955W8XXU1AQH3:user/release-keys";
-        description = "dream2ltebmc-user 7.0 NRD90M G955W8XXU1AQH3 release-keys";
+        fingerprint = "samsung/dream2ltebmc/dream2lte:8.0.0/R16NW/G955W8XXU3CRGH:user/release-keys";
+        description = "dream2ltebmc-user 8.0.0 R16NW G955W8XXU3CRGH release-keys";
         model = "SM-G955W8";
         device = "dream2ltebmc";
         break;
