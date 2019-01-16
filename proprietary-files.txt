@@ -271,8 +271,8 @@ lib64/libsecnativefeature.so
 vendor/lib64/libsecril-client.so
 lib64/libxml2.so
 lib64/libprotobuf-cpp-full.so
-
-
+lib/vendor.samsung.hardware.radio@1.0.so
+lib64/vendor.samsung.hardware.radio@1.0.so
 
 # Sensors
 vendor/etc/sensors/hals.conf
