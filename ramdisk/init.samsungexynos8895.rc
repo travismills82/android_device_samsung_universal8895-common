@@ -33,13 +33,37 @@ on init
     #Google FRP solution
     symlink /dev/block/platform/11120000.ufs/by-name/PERSISTENT /dev/block/persistent
 
-    # Link /odm to /system/odm for devices without a odm partition.
-    symlink /system/odm /odm
-
     # Link /vendor to /system/vendor for devices without a vendor partition.
     symlink /system/vendor /vendor
 
+on post-fs
+    # set RLIMIT_MEMLOCK to 64MB
+    setrlimit 8 67108864 67108864
+
 on post-fs-data
+# setup cgroup freezer for freecess
+    mkdir /dev/freezer
+    mount cgroup none /dev/freezer freezer
+    mkdir /dev/freezer/frozen
+    mkdir /dev/freezer/thaw
+    write /dev/freezer/frozen/freezer.state FROZEN
+    write /dev/freezer/thaw/freezer.state THAWED
+
+# MARs for freecess
+    chown system system /dev/freezer
+    chown system system /dev/freezer/frozen
+    chown system system /dev/freezer/frozen/tasks
+    chown system system /dev/freezer/frozen/cgroup.procs
+    chown system system /dev/freezer/thaw
+    chown system system /dev/freezer/thaw/tasks
+    chown system system /dev/freezer/thaw/cgroup.procs
+
+# MARs for freecess
+    chmod 0644 /dev/freezer/frozen/tasks
+    chmod 0644 /dev/freezer/frozen/cgroup.procs
+    chmod 0644 /dev/freezer/thaw/tasks
+    chmod 0644 /dev/freezer/thaw/cgroup.procs
+
 # Log data folder
     mkdir /data/log 0771 radio system
 
@@ -331,7 +355,7 @@ on boot
     chown system radio /sys/class/sec/ccic/lpm_mode
     chown system radio /sys/class/sec/ccic/ccic_control_option
     
-    # Power Meter
+# Power Meter
     chown system system /sys/class/adc_meter/s2mps17_adc/adc_ctrl1
     chown system system /sys/class/adc_meter/s2mps17_adc/adc_en
     chown system system /sys/class/adc_meter/s2mps17_adc/adc_mode
@@ -425,7 +449,6 @@ on boot
 
 # for BT MAC address
     mkdir /efs/bluetooth 0770 system bluetooth
-    
 # if already exist
     chown system bluetooth /efs/bluetooth
     chown system bluetooth /efs/bluetooth/bt_addr
@@ -637,15 +660,12 @@ on fs
 # DP AUX switch control for factory test
     chmod 0660 /sys/class/dp_sec/dp_sbu_sw_sel
     chown system system /sys/class/dp_sec/dp_sbu_sw_sel
-    
 # DP DEX control
     chmod 0660 /sys/class/dp_sec/dex
     chown system system /sys/class/dp_sec/dex
-    
 # DP AUX dev control
     chmod 0660 /dev/secdp_aux
     chown system system /dev/secdp_aux
-    
 # DP error info
     chmod 0660 /sys/class/dp_sec/dp_error_info
     chown system system /sys/class/dp_sec/dp_error_info
@@ -847,7 +867,7 @@ on fs
 #load ecd firmware
     write /proc/ecd/load_firmware 1
 
- ARGOSD network_throughput
+# ARGOSD network_throughput
     chown system system /dev/network_throughput
 
 # ARGOSD
