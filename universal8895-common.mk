@@ -105,7 +105,7 @@ PRODUCT_PACKAGES += \
     libExynosOMX_shim
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/init/android.hardware.media.omx@1.0-service.rc:system/vendor/etc/init/android.hardware.media.omx@1.0-service.rc   
+    $(LOCAL_PATH)/configs/init/android.hardware.media.omx@1.0-service_slsi.rc:system/vendor/etc/init/android.hardware.media.omx@1.0-service_slsi.rc   
 
 # hardware/samsung/AdvancedDisplay (MDNIE)
 #PRODUCT_PACKAGES += \
