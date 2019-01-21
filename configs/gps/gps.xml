@@ -3,7 +3,7 @@
   <!--HAL Confguration  -->
   <hal
     PortName="lhd"
-    NvStorageDir="/data/system/gps/"
+    NvStorageDir="/data/vendor/gps/"
 
     LogDirectory="/storage/emulated/0/gps/broadcom/storage"
 
@@ -28,7 +28,7 @@
     RtiConfig="gllto.glpals.com:80/rtistatus3.dat"
     HttpSyncLto="true"
     LbsCellEnable="false"
-    LtoDir="/data/system/gps/"
+    LtoDir="/data/vendor/gps/"
     LtoSyncThresholdDays="1"
 
     IgnoreJniTime="true"
@@ -46,8 +46,11 @@
     LogFacMask="LOG_GLLIO | LOG_GLLAPI | LOG_NMEA | LOG_RAWDATA"
     FrqPlan="FRQ_PLAN_26MHZ_2PPM"
     RfType="GL_RF_47531_BRCM_EXT_LNA"
+    EnableOnChipStopNotification="true"
     WarmStandbyTimeout1Seconds="10"
     WarmStandbyTimeout2Seconds="15"
+    RfPathLossDb_Cp="4.0"
+    RfPathLossDb_Ap="5.0"
   >
   </gll>
 
