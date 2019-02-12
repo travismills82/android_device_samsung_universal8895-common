@@ -140,8 +140,8 @@ vendor/lib64/libOpenCL.so
 vendor/lib64/libOpenCv.so
 lib/libacryl.so
 lib64/libacryl.so
-#lib/libvulkan.so
-#lib64/libvulkan.so
+lib/libvulkan.so
+lib64/libvulkan.so
 
 # Media
 vendor/firmware/companion_2l2_master_setfile.bin
