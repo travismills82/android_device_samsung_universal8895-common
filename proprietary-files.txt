@@ -140,8 +140,8 @@ vendor/lib64/libOpenCL.so
 #vendor/lib64/libOpenCv.so
 lib/libacryl.so
 lib64/libacryl.so
-#lib/libvulkan.so
-#lib64/libvulkan.so
+vendor/lib/hw/vulkan.exynos5.so
+vendor/lib64/hw/vulkan.exynos5.so
 
 # Media
 vendor/firmware/companion_2l2_master_setfile.bin
@@ -178,6 +178,8 @@ vendor/firmware/calliope_iva.bin
 vendor/firmware/calliope_sram.bin
 vendor/firmware/dsm.bin
 vendor/firmware/dsm_tune.bin
+vendor/firmware/bcm4361B0_murata.hcd
+vendor/firmware/bcm4361B0_semco.hcd
 
 # Mobicore
 vendor/app/mcRegistry/07010000000000000000000000000000.tlbin
@@ -298,6 +300,7 @@ lib64/hw/gralloc.exynos5.so
 vendor/etc/wifi/bcmdhd_clm.blob
 vendor/etc/wifi/bcmdhd_mfg.bin_b0
 vendor/etc/wifi/bcmdhd_mfg.bin_b2
+vendor/etc/wifi/bcmdhd_mon.bin_b2
 vendor/etc/wifi/bcmdhd_sta.bin_b0
 vendor/etc/wifi/bcmdhd_sta.bin_b2
 vendor/etc/wifi/nvram.txt
@@ -315,6 +318,7 @@ vendor/etc/wifi/nvram.txt_r01i_b0
 vendor/etc/wifi/nvram.txt_r02a_a1
 vendor/etc/wifi/nvram.txt_r02c_a1
 vendor/etc/wifi/nvram.txt_r02g_b0
+vendor/etc/wifi/nvram.txt_r02j_b0
 vendor/etc/wifi/wldu.conf
 #vendor/etc/wifi/.clminfo
 
