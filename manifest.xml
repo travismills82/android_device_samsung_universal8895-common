@@ -1,135 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Comments, Legal notices, etc. here -->
 <manifest version="1.0" type="device">
-    
-    <!--
-        Bluetooth
-      -->
     <hal format="hidl">
-        <name>android.hardware.bluetooth</name>
+        <name>android.hardware.audio</name>
         <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IBluetoothHci</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    
-    <!--
-        Configstore
-      -->
-    <hal format="hidl">
-        <name>android.hardware.configstore</name>
-        <transport>hwbinder</transport>
-        <impl level="generic"></impl>
-        <version>1.0</version>
-        <interface>
-            <name>ISurfaceFlingerConfigs</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-
-    <!--
-        DRM
-      -->
-    <hal format="hidl">
-        <name>android.hardware.drm</name>
-        <transport>hwbinder</transport>
-        <version>1.0</version>
-        <interface>
-            <name>ICryptoFactory</name>
-            <instance>widevine</instance>
-            <instance>default</instance>
-        </interface>
-        <interface>
-            <name>IDrmFactory</name>
-            <instance>widevine</instance>
-            <instance>default</instance>
-        </interface>
-    </hal>
-
-    <!--
-        Fingerprint
-      -->
-    <hal format="hidl">
-        <name>android.hardware.biometrics.fingerprint</name>
-        <transport>hwbinder</transport>
-        <impl level="generic"></impl>
-        <version>2.1</version>
-        <interface>
-            <name>IBiometricsFingerprint</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-
-    <!--
-        Graphics
-      -->
-    <hal format="hidl">
-        <name>android.hardware.graphics.allocator</name>
-        <transport arch="32+64">passthrough</transport>
-        <impl level="generic"></impl>
         <version>2.0</version>
         <interface>
-            <name>IAllocator</name>
+            <name>IDevicesFactory</name>
             <instance>default</instance>
         </interface>
     </hal>
     <hal format="hidl">
-        <name>android.hardware.graphics.mapper</name>
-        <transport arch="32+64">passthrough</transport>
-        <impl level="generic"></impl>
+        <name>android.hardware.audio.effect</name>
+        <transport>hwbinder</transport>
         <version>2.0</version>
         <interface>
-            <name>IMapper</name>
+            <name>IEffectsFactory</name>
             <instance>default</instance>
         </interface>
     </hal>
-
-    <!--
-        Keymaster
-      -->
-    <hal format="hidl">
-        <name>android.hardware.keymaster</name>
-        <transport>hwbinder</transport>
-        <impl level="generic"></impl>
-        <version>3.0</version>
-        <interface>
-            <name>IKeystoreService</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    
-    <!--
-        Light
-      -->
-    <hal format="hidl">
-        <name>android.hardware.light</name>
-        <transport>hwbinder</transport>
-        <impl level="generic"></impl>
-        <version>2.0</version>
-        <interface>
-            <name>ILight</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-
-    <!--
-        Location
-      -->
-    <hal format="hidl">
-        <name>android.hardware.gnss</name>
-        <transport arch="32+64">passthrough</transport>
-        <version>1.0</version>
-        <interface>
-            <name>IGnss</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-
-    <!--
-        OMX
-      -->
     <hal format="hidl">
         <name>android.hardware.media.omx</name>
         <transport>hwbinder</transport>
@@ -143,10 +32,114 @@
             <instance>default</instance>
         </interface>
     </hal>
-
-     <!--
-        Power
-      -->
+	<hal format="hidl">
+        <name>android.hardware.graphics.allocator</name>
+        <transport>hwbinder</transport>
+        <version>2.0</version>
+        <interface>
+            <name>IAllocator</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.graphics.mapper</name>
+        <transport arch="32+64">passthrough</transport>
+        <version>2.0</version>
+        <interface>
+            <name>IMapper</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.samsung_slsi.hardware.ExynosHWCServiceTW</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IExynosHWCServiceTW</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.renderscript</name>
+        <transport arch="32+64">passthrough</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IDevice</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.gnss</name>
+        <transport>hwbinder</transport>
+        <version>1.1</version>
+        <interface>
+            <name>IGnss</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.samsung.hardware.gnss</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>ISecGnss</name>
+            <instance>default</instance>
+        </interface>
+        <fqname>@1.0::ISecGnss/default</fqname>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.keymaster</name>
+        <transport>hwbinder</transport>
+        <impl level="generic"></impl>
+        <version>3.0</version>
+        <interface>
+            <name>IKeymasterDevice</name>
+            <instance>default</instance>
+        </interface>
+   </hal>
+   <hal format="hidl">
+        <name>android.hardware.gatekeeper</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IGatekeeper</name>
+            <instance>default</instance>
+        </interface>
+   </hal>
+   <hal format="hidl">
+        <name>android.hardware.drm</name>
+        <transport>hwbinder</transport>
+        <impl level="generic"></impl>
+        <version>1.1</version>
+        <interface>
+            <name>ICryptoFactory</name>
+            <instance>default</instance>
+            <instance>widevine</instance>
+        </interface>
+        <interface>
+            <name>IDrmFactory</name>
+            <instance>default</instance>
+            <instance>widevine</instance>
+        </interface>
+   </hal>
+    <hal format="hidl">
+        <name>android.hardware.configstore</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>ISurfaceFlingerConfigs</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.samsung_slsi.hardware.configstore</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IExynosHWCConfigs</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
     <hal format="hidl">
         <name>android.hardware.power</name>
         <transport>hwbinder</transport>
@@ -154,83 +147,164 @@
         <interface>
             <name>IPower</name>
             <instance>default</instance>
-        </interface>
-    </hal>
-
-    <!--
-        RIL/Radio
-      -->
-    <hal format="hidl">
-        <name>android.hardware.radio</name>
-        <transport>hwbinder</transport>
-        <impl level="generic"></impl>
-        <version>1.0</version>
-        <interface>
-            <name>IRadio</name>
-            <instance>slot1</instance>
+            <instance>miscpower</instance>
         </interface>
     </hal>
     <hal format="hidl">
-        <name>android.hardware.radio.deprecated</name>
+        <name>android.hardware.thermal</name>
         <transport>hwbinder</transport>
-        <impl level="generic"></impl>
         <version>1.0</version>
         <interface>
-            <name>IOemHook</name>
-            <instance>slot1</instance>
+            <name>IThermal</name>
+            <instance>default</instance>
         </interface>
     </hal>
-
-     <!--
-        USB
-      -->
     <hal format="hidl">
         <name>android.hardware.usb</name>
         <transport>hwbinder</transport>
-        <impl level="generic"></impl>
-        <version>1.0</version>
+        <version>1.1</version>
         <interface>
             <name>IUsb</name>
             <instance>default</instance>
         </interface>
     </hal>
-
-    <!--
-        Vibrator
-      -->
     <hal format="hidl">
-        <name>android.hardware.vibrator</name>
+        <name>android.hardware.sensors</name>
         <transport>hwbinder</transport>
-        <impl level="generic"></impl>
         <version>1.0</version>
         <interface>
-            <name>IVibrator</name>
+            <name>ISensors</name>
             <instance>default</instance>
         </interface>
     </hal>
-    
-    <!--
-        WiFi
-      -->
+    <sepolicy>
+        <version>26.0</version>
+    </sepolicy>
+    <hal format="hidl">
+        <name>android.hardware.biometrics.fingerprint</name>
+        <transport>hwbinder</transport>
+        <version>2.1</version>
+            <interface>
+                <name>IBiometricsFingerprint</name>
+                <instance>default</instance>
+            </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.samsung.hardware.biometrics.fingerprint</name>
+        <transport>hwbinder</transport>
+        <version>2.1</version>
+            <interface>
+                <name>ISecBiometricsFingerprint</name>
+                <instance>default</instance>
+            </interface>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.bluetooth</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IBluetoothHci</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
     <hal format="hidl">
         <name>android.hardware.wifi</name>
         <transport>hwbinder</transport>
-        <impl level="generic"></impl>
-        <version>1.0</version>
+        <version>1.2</version>
         <interface>
             <name>IWifi</name>
             <instance>default</instance>
         </interface>
     </hal>
     <hal format="hidl">
+        <name>android.hardware.wifi.hostapd</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IHostapd</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.samsung.hardware.wifi.hostapd</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>ISemHostapd</name>
+            <instance>default</instance>
+        </interface>
+    </hal>    
+    <hal format="hidl">
         <name>android.hardware.wifi.supplicant</name>
         <transport>hwbinder</transport>
-        <impl level="generic"></impl>
-        <version>1.0</version>
+        <version>1.1</version>
         <interface>
             <name>ISupplicant</name>
             <instance>default</instance>
         </interface>
     </hal>
-
+    <hal format="hidl">
+        <name>android.hardware.health</name>
+        <transport>hwbinder</transport>
+        <version>2.0</version>
+        <interface>
+            <name>IHealth</name>
+            <instance>default</instance>
+            <instance>exthealth</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.samsung.hardware.exthealth</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IExtHealth</name>
+            <instance>exthealth</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.samsung.security.wvkprov_server</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>Iwvkprov_server</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.samsung.security.skpm</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>ISkpm</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.samsung.security.sem</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>ISem</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.trustonic.tee</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>ITee</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="hidl">
+        <name>vendor.trustonic.teeregistry</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>ITeeRegistry</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
 </manifest>
