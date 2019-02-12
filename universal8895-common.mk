@@ -113,8 +113,8 @@ PRODUCT_COPY_FILES += \
 
 # DRM
 PRODUCT_PACKAGES += \
-    android.hardware.drm@1.0-impl \
-    android.hardware.drm@1.0-service
+    android.hardware.drm@1.1-impl \
+    android.hardware.drm@1.1-service
 
 # Sensors
 PRODUCT_PACKAGES += \
@@ -189,9 +189,9 @@ PRODUCT_PACKAGES += \
     libQWiFiSoftApCfg \
     libwpa_client \
     wpa_supplicant \
-    android.hardware.wifi@1.0-service \
-    android.hardware.wifi@1.0 \
-    android.hardware.wifi@1.0-impl
+    android.hardware.wifi@1.2-service \
+    android.hardware.wifi@1.2 \
+    android.hardware.wifi@1.2-impl
 
 # external/wpa_supplicant_8/wpa_supplicant/wpa_supplicant_conf.mk
 PRODUCT_PACKAGES += \
