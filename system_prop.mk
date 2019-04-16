@@ -47,6 +47,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     
 # HWC
 debug.hwc.force_gpu=1
+debug.hwc.winupdate=1
+debug.hwc.otf=1
 ro.sf.disable_triple_buffer=0
 
 # Network
