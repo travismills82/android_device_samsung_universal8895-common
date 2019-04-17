@@ -135,10 +135,6 @@ on post-fs-data
 # ] SEC_SELINUX_PORTING_COMMON
 
 on boot
-    #knox_kap
-    chown system system /dev/knox_kap
-    chmod 0644 /dev/knox_kap
-
     # MTP permission
     chmod 0660 /dev/usb_mtp_gadget
     chown system mtp /dev/usb_mtp_gadget
@@ -400,10 +396,6 @@ on boot
 
     # HMT relay mode
     chown radio system /sys/devices/virtual/relay_on
-
-    # KNOX_NAP
-    chmod 0660 /dev/ncm_dev
-    chown system system /dev/ncm_dev
 
 #OTP
     mkdir /data/otp 0700 system system
