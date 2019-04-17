@@ -41,6 +41,18 @@ PRODUCT_PACKAGES += \
     ueventd.samsungexynos8895.rc \
     vold.rc
 
+	# cpboot daemon
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/ramdisk/sbin/cbd:root/sbin/cbd
+
+	# sswap
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/ramdisk/sbin/sswap:root/sbin/sswap
+	
+	# charger
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/ramdisk/sbin/charger:root/sbin/charger
+	
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
