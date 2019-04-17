@@ -1,14 +1,20 @@
-on init
-    # Directory for putting things only root should see.
-    mkdir /mnt/secure 0700 root root
-## Samsung ODE >>>
-    # Create private mountpoint so we can MS_MOVE from staging
-    mount tmpfs tmpfs /mnt/secure mode=0700,uid=0,gid=0
+# Copyright (C) 2012 The Android Open Source Project
+#
+# IMPORTANT: Do not create world writable files or directories.
+# This is a common source of Android security bugs.
+#
 
-    # Directory for staging bindmounts
-    mkdir /mnt/secure/staging 0700 root root
-    restorecon_recursive /mnt/secure/staging
-## Samsung ODE <<<
+import /init.wifi.rc
+
+on init
+# [ SEC_SELINUX_PORTING_COMMON
+    # for audit message
+    chown system system /proc/avc_msg
+    chmod 0660 /proc/avc_msg
+# ] SEC_SELINUX_PORTING_COMMON
+
+    # MirrorLink permission
+    mkdir /dev/socket/mlaudio 0770 audioserver system
 
     # Directory-target for where the secure container
     # imagefile directory will be bind-mounted
@@ -16,269 +22,50 @@ on init
     mount tmpfs tmpfs /mnt/secure/asec mode=0700,uid=0,gid=0
     restorecon_recursive /mnt/secure/asec
 
-    mkdir /storage 0755 root root
-    
-    # Create energy-aware scheduler tuning nodes
-    mkdir /dev/stune
-    mount cgroup none /dev/stune schedtune
-    mkdir /dev/stune/top-app
-    mkdir /dev/stune/foreground
-    mkdir /dev/stune/background
-    mkdir /dev/stune/system-background
-
-    chown system system /dev/stune
-    chown system system /dev/stune/top-app
-    chown system system /dev/stune/foreground
-    chown system system /dev/stune/background
-    chown system system /dev/stune/system-background
-    chown system system /dev/stune/tasks
-    chown system system /dev/stune/top-app/tasks
-    chown system system /dev/stune/foreground/tasks
-    chown system system /dev/stune/background/tasks
-    chown system system /dev/stune/system-background/tasks
-
-    chmod 0664 /dev/stune/tasks
-    chmod 0664 /dev/stune/top-app/tasks
-    chmod 0664 /dev/stune/foreground/tasks
-    chmod 0664 /dev/stune/background/tasks
-    chmod 0664 /dev/stune/system-background/tasks
-    
-    write /proc/sys/kernel/sched_compat_yield 1
-### DEFAULT
-    # Create cgroup mount points for process groups
-    mkdir /dev/cpuctl
-    chmod 0666 /dev/cpuctl
-    mount cgroup system /dev/cpuctl cpu
-    chown system system /dev/cpuctl
-    chown system system /dev/cpuctl/tasks
-    chmod 0666 /dev/cpuctl/tasks
-    write /dev/cpuctl/cpu.shares 1024
-    write /dev/cpuctl/cpu.rt_runtime_us 800000
-    write /dev/cpuctl/cpu.rt_period_us 1000000
-### BG_NONINTERACTIVE
-    mkdir /dev/cpuctl/bg_non_interactive
-    chown system system /dev/cpuctl/bg_non_interactive
-    chmod 0666 /dev/cpuctl/bg_non_interactive
-    chown system system /dev/cpuctl/bg_non_interactive/tasks
-    chmod 0666 /dev/cpuctl/bg_non_interactive/tasks
-    # 5.0 %
-    write /dev/cpuctl/bg_non_interactive/cpu.shares 52
-    write /dev/cpuctl/bg_non_interactive/cpu.rt_runtime_us 700000
-    write /dev/cpuctl/bg_non_interactive/cpu.rt_period_us 1000000
-### FOREGROUND
-    mkdir /dev/cpuctl/fg_foreground
-    chown system system /dev/cpuctl/fg_foreground/tasks
-    chown system system /dev/cpuctl/fg_foreground/cpu.cfs_period_us
-    chown system system /dev/cpuctl/fg_foreground/cpu.cfs_quota_us
-    chmod 0666 /dev/cpuctl/fg_foreground/tasks
-    chmod 0664 /dev/cpuctl/fg_foreground/cpu.cfs_period_us
-    chmod 0664 /dev/cpuctl/fg_foreground/cpu.cfs_quota_us
-    # 5.0 %
-    write /dev/cpuctl/fg_foreground/cpu.shares 52
-    write /dev/cpuctl/fg_foreground/cpu.rt_runtime_us 700000
-    write /dev/cpuctl/fg_foreground/cpu.rt_period_us 1000000
-    write /dev/cpuctl/fg_foreground/cpu.cfs_period_us 20000
-    write /dev/cpuctl/fg_foreground/cpu.cfs_quota_us 10000
-### AUDIO_APP
-    mkdir /dev/cpuctl/audio-app
-    chown system system /dev/cpuctl/aa_audio-app/tasks
-    chown system system /dev/cpuctl/aa_audio-app/cpu.cfs_period_us
-    chown system system /dev/cpuctl/aa_audio-app/cpu.cfs_quota_us
-    chmod 0666 /dev/cpuctl/aa_audio-app/tasks
-    chmod 0664 /dev/cpuctl/aa_audio-app/cpu.cfs_period_us
-    chmod 0664 /dev/cpuctl/aa_audio-app/cpu.cfs_quota_us
-    # 5.0 %
-    write /dev/cpuctl/aa_audio-app/cpu.shares 52
-    write /dev/cpuctl/aa_audio-app/cpu.rt_runtime_us 700000
-    write /dev/cpuctl/aa_audio-app/cpu.rt_period_us 1000000
-    write /dev/cpuctl/aa_audio-app/cpu.cfs_period_us 20000
-    write /dev/cpuctl/aa_audio-app/cpu.cfs_quota_us 10000
-### AUDIO_SYS
-    mkdir /dev/cpuctl/as_audio-sys
-    chown system system /dev/cpuctl/as_audio-sys/tasks
-    chown system system /dev/cpuctl/as_audio-sys/cpu.cfs_period_us
-    chown system system /dev/cpuctl/as_audio-sys/cpu.cfs_quota_us
-    chmod 0666 /dev/cpuctl/as_audio-sys/tasks
-    chmod 0664 /dev/cpuctl/as_audio-sys/cpu.cfs_period_us
-    chmod 0664 /dev/cpuctl/as_audio-sys/cpu.cfs_quota_us
-    # 5.0 %
-    write /dev/cpuctl/bg_abnormal/cpu.shares 52
-    write /dev/cpuctl/bg_abnormal/cpu.rt_runtime_us 700000
-    write /dev/cpuctl/bg_abnormal/cpu.rt_period_us 1000000
-    write /dev/cpuctl/bg_abnormal/cpu.cfs_period_us 20000
-    write /dev/cpuctl/bg_abnormal/cpu.cfs_quota_us 10000
-### TOP_APP
-    mkdir /dev/cpuctl/ta_top-app
-    chown system system /dev/cpuctl/ta_top-app/tasks
-    chown system system /dev/cpuctl/ta_top-app/cpu.cfs_period_us
-    chown system system /dev/cpuctl/ta_top-app/cpu.cfs_quota_us
-    chmod 0666 /dev/cpuctl/ta_top-app/tasks
-    chmod 0664 /dev/cpuctl/ta_top-app/cpu.cfs_period_us
-    chmod 0664 /dev/cpuctl/ta_top-app/cpu.cfs_quota_us
-    # 5.0 %
-    write /dev/cpuctl/ta_top-app/cpu.shares 52
-    write /dev/cpuctl/ta_top-app/cpu.rt_runtime_us 700000
-    write /dev/cpuctl/ta_top-app/cpu.rt_period_us 1000000
-    write /dev/cpuctl/ta_top-app/cpu.cfs_period_us 20000
-    write /dev/cpuctl/ta_top-app/cpu.cfs_quota_us 10000
-
-    # sets up initial cpusets for ActivityManager
-    mkdir /dev/cpuset
-    mount cpuset none /dev/cpuset
-
-    # this ensures that the cpusets are present and usable, but the device's
-    # init.rc must actually set the correct cpus
-    mkdir /dev/cpuset/top-app
-    write /dev/cpuset/top-app/cpus 0-7
-    write /dev/cpuset/top-app/mems 0
-    mkdir /dev/cpuset/foreground
-    write /dev/cpuset/foreground/cpus 0-2,4-7
-    write /dev/cpuset/foreground/mems 0
-    mkdir /dev/cpuset/foreground/boost
-    write /dev/cpuset/foreground/boost/cpus 4-7
-    write /dev/cpuset/foreground/boost/mems 0
-    mkdir /dev/cpuset/background
-    write /dev/cpuset/background/cpus 0-1
-    write /dev/cpuset/background/mems 0
-    mkdir /dev/cpuset/cached
-    write /dev/cpuset/cached/cpus 1
-    write /dev/cpuset/cached/mems 0
-    mkdir /dev/cpuset/abnormal
-    write /dev/cpuset/abnormal/cpus 1
-    write /dev/cpuset/abnormal/mems 0
-    mkdir /dev/cpuset/dex2oat
-    write /dev/cpuset/dex2oat/cpus 0-2,4-7
-    write /dev/cpuset/dex2oat/mems 0
-
-    # system-background is for system tasks that should only run on
-    # little cores, not on bigs
-    # to be used only by init, so don't change system-bg permissions
-    mkdir /dev/cpuset/system-background
-    write /dev/cpuset/system-background/cpus 0-2
-    write /dev/cpuset/system-background/mems 0
-
-    # change permissions for all cpusets we'll touch at runtime
-    chown system system /dev/cpuset
-    chown system system /dev/cpuset/top-app
-    chown system system /dev/cpuset/foreground
-    chown system system /dev/cpuset/foreground/boost
-    chown system system /dev/cpuset/background
-    chown system system /dev/cpuset/system-background
-    chown system system /dev/cpuset/cached
-    chown system system /dev/cpuset/abnormal
-    chown system system /dev/cpuset/dex2oat
-    chown system system /dev/cpuset/tasks
-    chown system system /dev/cpuset/top-app/tasks
-    chown system system /dev/cpuset/foreground/tasks
-    chown system system /dev/cpuset/foreground/boost/tasks
-    chown system system /dev/cpuset/background/tasks
-    chown system system /dev/cpuset/system-background/tasks
-    chown system system /dev/cpuset/cached/tasks
-    chown system system /dev/cpuset/abnormal/tasks
-    chown system system /dev/cpuset/dex2oat/tasks
-    chown system system /dev/cpuset/cpus
-    chown system system /dev/cpuset/top-app/cpus
-    chown system system /dev/cpuset/foreground/cpus
-    chown system system /dev/cpuset/background/cpus
-    chown system system /dev/cpuset/system-background/cpus
-    chown system system /dev/cpuset/cached/cpus
-    chown system system /dev/cpuset/abnormal/cpus
-    chown system system /dev/cpuset/dex2oat/cpus
-
-    # set system-background to 0775 so SurfaceFlinger can touch it
-    chmod 0775 /dev/cpuset/system-background
-
-    chmod 0664 /dev/cpuset/top-app/tasks
-    chmod 0664 /dev/cpuset/foreground/tasks
-    chmod 0664 /dev/cpuset/foreground/boost/tasks
-    chmod 0664 /dev/cpuset/background/tasks
-    chmod 0664 /dev/cpuset/system-background/tasks
-    chmod 0664 /dev/cpuset/cached/tasks
-    chmod 0664 /dev/cpuset/abnormal/tasks
-    chmod 0664 /dev/cpuset/dex2oat/tasks
-    chmod 0664 /dev/cpuset/tasks
-    chmod 0664 /dev/cpuset/top-app/cpus
-    chmod 0664 /dev/cpuset/foreground/cpus
-    chmod 0664 /dev/cpuset/background/cpus
-    chmod 0664 /dev/cpuset/system-background/cpus
-    chmod 0664 /dev/cpuset/cached/cpus
-    chmod 0664 /dev/cpuset/abnormal/cpus
-    chmod 0664 /dev/cpuset/dex2oat/cpus
-    chmod 0664 /dev/cpuset/cpus
-
-    # change own for camera preview lagging
-    chown system system /sys/kernel/hmp/down_threshold
-
-    # set permission to 0660 for camera preview lagging
-    chmod 0660 /sys/kernel/hmp/down_threshold 
-
+    # /proc/net/fib_trie leaks interface IP addresses
+    chmod 0400 /proc/net/fib_trie
+	
     # reset_reason
     chown system system /proc/reset_reason
     chmod 0600 /proc/reset_reason
     chown system system /proc/reset_reason_extra_info
     chmod 0600 /proc/reset_reason_extra_info
+    chown system system /proc/store_lastkmsg
+    chmod 0600 /proc/store_lastkmsg
+    chown system system /proc/auto_comment
+    chmod 0600 /proc/auto_comment
 
-# ap hw param data
+    # ap hw param data
     chown system system /sys/class/sec/sec_hw_param/ap_info
     chmod 0600 /sys/class/sec/sec_hw_param/ap_info
     chown system system /sys/class/sec/sec_hw_param/ddr_info
     chmod 0600 /sys/class/sec/sec_hw_param/ddr_info
-
-    # binder
-    chown system system /sys/module/binder/parameters/trace_pid
-    chmod 0600 /sys/module/binder/parameters/trace_pid
-
-    # disable klogd to avoid interrupting 'cat /proc/kmsg' by reading /proc/kmsg simultaneously
-    setprop logd.kernel false
+    chown system system /sys/class/sec/sec_hw_param/extra_info
+    chmod 0600 /sys/class/sec/sec_hw_param/extra_info
+    chown system system /sys/class/sec/sec_hw_param/extrb_info
+    chmod 0600 /sys/class/sec/sec_hw_param/extrb_info
+    chown system system /sys/class/sec/sec_hw_param/extrc_info
+    chmod 0600 /sys/class/sec/sec_hw_param/extrc_info
+    chown system system /sys/class/sec/sec_hw_param/extrm_info
+    chmod 0600 /sys/class/sec/sec_hw_param/extrm_info
+    chown system system /sys/class/sec/sec_hw_param/extrf_info
+    chmod 0600 /sys/class/sec/sec_hw_param/extrf_info
+    chown system radio /sys/class/sec/sec_hw_param/pcb_info
+    chmod 0660 /sys/class/sec/sec_hw_param/pcb_info
+    chown system radio /sys/class/sec/sec_hw_param/smd_info
+    chmod 0660 /sys/class/sec/sec_hw_param/smd_info
+    chown system system /sys/class/sec/sec_hw_param/thermal_info
 
 on post-fs
-    start sec-sh
-    
     # mobicore
     setprop sys.mobicoredaemon.enable stopped
- 
-## Samsung ODE >>>
-    mount tmpfs tmpfs /mnt/secure private rec
-## Samsung ODE <<<
 
-    mount tmpfs tmpfs /mnt/secure/asec shared rec
-
+    # Bluetooth
+    chown root log /proc/bluetooth/uart/log
     chown system log /proc/sec_log
-    chown system log /proc/reset_summary
-    chmod 0440 /proc/reset_summary 
 
 on post-fs-data
-# [ SEC_SELINUX_PORTING_COMMON
-    # Reload SE Android Policy
-
-    # sec_efs_file
     mkdir /efs/sec_efs 0775 radio system
-# ] SEC_SELINUX_PORTING_COMMON
-
-    # h2k
-    mkdir /efs/cpk 0771 radio system
-    chmod 0644 /efs/redata.bin
-    chmod 0644 /efs/cpk/redata.bin
-    chown radio radio /efs/h2k.dat
-    chown radio radio /efs/cpk/h2k.dat
-    chmod 0644 /efs/h2k.dat
-    chmod 0644 /efs/cpk/h2k.dat
-    chown system system /efs/drm/h2k
-
-    # icd
-    check_icd
-    chown system system /dev/icd
-    chmod 0644 /dev/icd
-    chown system system /dev/icdr
-    chmod 0644 /dev/icdr
-    chown system net_bt_admin /dev/tzic
-    chmod 0660 /dev/tzic
-    restorecon /dev/icd
-    restorecon /dev/icdr
-    
-    #SideSync
-    chown system system /dev/android_ssusbcon
-    chmod 0660 /dev/android_ssusbcon
 
     # mobicore
     export MC_AUTH_TOKEN_PATH /efs
@@ -287,105 +74,85 @@ on post-fs-data
     chown system system /dev/t-base-tui
     start mobicore
 
-    # FINGERPRINT
-    fp_migration /data/biometrics /data/vendor/biometrics
-    mkdir /data/vendor/biometrics 0770 system system
-    restorecon_recursive /data/vendor/biometrics
+    mkdir /efs/prov 0770 system system
+    mkdir /efs/prov_data 0770 system system
 
-    mkdir /data/misc/radio 0775 system radio
+    mkdir /data/log 0775 system log
+    mkdir /data/log/bt 0770 bluetooth bluetooth
     mkdir /data/misc/wifi_hostapd 0771 wifi system
-    mkdir /data/misc/wifi_share_profile 0771 wifi system
-    mkdir /data/misc/mediacodec 0700 mediacodec mediacodec
 
     #lpnetConfig AppSync
     mkdir /data/misc/lpnet 0700 system system
-	
+
     # Professioanl Audio
     mkdir /data/misc/jack 0770 jack system
-
-    # NFC: create data/nfc for nv storage
-    mkdir /data/nfc 0770 nfc nfc
-    mkdir /data/nfc/param 0770 nfc nfc
-
-    # NFC: create /efs/sec_efs/nfc and /efs/nfc for nv storage
-    mkdir /efs/sec_efs/nfc 0700 nfc nfc
-    mkdir /efs/nfc 0700 nfc nfc
-
-    # NFC KEY
-    mkdir /data/vendor/nfc 0770 nfc nfc
-    mkdir /data/nfc_log 0750 nfc system
-    copy /system/etc/nfc_key /data/nfc/Key
-    chmod 660 /data/nfc/Key
-    chown nfc nfc /data/nfc/Key
-
-    # ATT CIQ
-    mkdir /data/iq_archive 0771 system system
-    mkdir /data/iq_archive/packages 0771 system system
-    mkdir /data/iq_archive/prefs 0700 system system
 
     #create uibc dir
     mkdir /dev/socket/uibc 0777 media system
     chown media system /dev/socket/uibc
     chmod 0775 /dev/socket/uibc
-    
-#~ # Chooser/Resolver
-#~ cpyContent_rmdir /data/user/0/system:ui
-#~ cpyContent_rmdir /data/user/0/android:ui
+
+    # VaultKeeper socket
+    mkdir /dev/socket/vaultkeeper 0770 system system
+    chown system system /dev/socket/vaultkeeper
+    chmod 0770 /dev/socket/vaultkeeper
+
+    # barnswallow Daemon socket
+    mkdir /dev/socket/bsd 0770 system system
+
+    # Permission for Fingerprint sensor
+    chown system radio /sys/class/fingerprint/fingerprint/type_check
+    chown system radio /sys/class/fingerprint/fingerprint/name
+    chown system radio /sys/class/fingerprint/fingerprint/vendor
+    chown system radio /sys/class/fingerprint/fingerprint/adm
+    chown system radio /sys/class/fingerprint/fingerprint/bfs_values
+
+    # MST/NFC Switch
+    chown spay system /dev/mst_ctrl
+    chmod 0660 /dev/mst_ctrl
 
     # FIDO
     mkdir /data/.fido 0700 system system
 
+    # NFC
+    mkdir /data/nfc 0700 nfc nfc
+    mkdir /data/nfc/param 0700 nfc nfc
+    mkdir /efs/sec_efs/nfc 0700 nfc nfc
+
+    # NFC KEY
+    mkdir /data/nfc_log 0750 nfc system
+    copy /system/etc/nfc_key /data/nfc/Key
+    chmod 660 /data/nfc/Key
+    chown nfc nfc /data/nfc/Key
+
+    # OCF Key Service
+    mkdir /data/system/ocf_key_service 0700 system system
+
 # [ SEC_SELINUX_PORTING_COMMON
-    restorecon -R /efs
-    restorecon -R /carrier
+    restorecon --recursive --force /efs
+	restorecon_recursive /carrier
+	restorecon /sys/kernel/debug/tracing/trace_marker
 # ] SEC_SELINUX_PORTING_COMMON
 
-# Downloadable Filter
-    mkdir /data/DownFilters       0775 system system
-    mkdir /data/DownFilters/Lib   0775 system system
-    mkdir /data/DownFilters/Lib64 0775 system system
-    mkdir /data/DownFilters/Res   0775 system system
-    mkdir /data/DownFilters/Tex   0775 system system
-
-# Open Theme
-    mkdir /data/overlays 0745 system system
-
-# Samsung font
-    mkdir  /data/app_fonts 0775 system system
-
 on boot
-    # Bluetooth permissions
-    chown bluetooth net_bt_stack /dev/ttySAC1
-    chmod 0660 /dev/ttySAC1
-    # permissions for bluetooth.
-    mkdir /efs/bluetooth 0775 radio system
-    chown radio system /efs/bluetooth
-    chmod 0775 /efs/bluetooth
-    setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
-    chown bluetooth net_bt_stack ro.bt.bdaddr_path
-    chown radio net_bt_stack /efs/bluetooth/bt_addr
-    chmod 0640 /efs/bluetooth/bt_addr
-    chmod 0660 /sys/class/rfkill/rfkill0/state
-    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
-    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
-
-    # set RLIMIT_NICE to allow priorities from 19 to -20
-    setrlimit 13 40 40
+    #knox_kap
+    chown system system /dev/knox_kap
+    chmod 0644 /dev/knox_kap
 
     # MTP permission
     chmod 0660 /dev/usb_mtp_gadget
     chown system mtp /dev/usb_mtp_gadget
-    mkdir /dev/socket/mtp 0770 system mtp	
+    mkdir /dev/socket/mtp 0770 system mtp
+    # terminal mode
+    chmod 0660 /sys/class/android_usb/android0/terminal_version
+    chown system system /sys/class/android_usb/android0/terminal_version
 
     # NPS permission
     mkdir /dev/socket/nps 0770 system system
 
-    # MirrorLink permission
-    mkdir /dev/socket/mlaudio 0770 audioserver system
+    # Permissions for recovery_cause
+    chown system system /sys/class/sec/sec_debug/recovery_cause
 
-    # MSP FactoryApp
-    mkdir /efs/FactoryApp 0775 system system
-    
     # Switch Device
     chown system radio /sys/class/sec/switch/usb_sel
     chown system radio /sys/class/sec/switch/uart_sel
@@ -394,40 +161,63 @@ on boot
     chown system radio /sys/class/sec/switch/apo_factory
     chown system radio /sys/class/sec/switch/afc_disable
     chown system radio /sys/class/sec/switch/hiccup
-    chown system radio /sys/class/sec/switch/jig_disable
 
-    # GPIO DVS
-    chown radio system /sys/class/secgpio_check/secgpio_check_all/gpioinit_check
-    chown radio system /sys/class/secgpio_check/secgpio_check_all/gpiosleep_check
-    chown radio system /sys/class/secgpio_check/secgpio_check_all/checked_sleepGPIO
+    # OTG Test
+    chown system radio /sys/class/host_notify/usb_otg/booster
+    chmod 0664 /sys/class/host_notify/usb_otg/booster
 
-#permission for TSP, Touchkey
-    chown system radio /sys/class/sec/tsp/cmd
-    chmod 0660 /sys/class/sec/tsp/input/enabled
-    chown system system /sys/class/sec/tsp/input/enabled
+    # Permission for CCIC
+    chown system radio /sys/class/sec/ccic/lpm_mode
+    chmod 0664 /sys/class/sec/ccic/lpm_mode
+    chown system system /sys/class/sec/ccic/control_gpio
+    chmod 0660 /sys/class/sec/ccic/control_gpio
+    chown system radio /sys/class/sec/ccic/fw_update
+    chmod 0220 /sys/class/sec/ccic/fw_update
+    chown system radio /sys/class/sec/ccic/role_swap
+    chmod 0220 /sys/class/sec/ccic/role_swap
+    chown system usb /sys/class/sec/ccic/dex_fan_uvdm
+    chown system usb /sys/class/sec/ccic/samsung_uvdm
+    chown system radio /sys/class/sec/ccic/ccic_control_option
+    chown system usb /dev/ccic_misc
+    chmod 0664 /dev/ccic_misc
 
-    chmod 0660 /sys/class/sec_touchkey/input/enabled
-    chown system system /sys/class/sec/sec_touchkey/input/enabled
-    chown system radio /sys/class/sec/sec_touchkey/brightness
+    # usb disable
+    chown system usb /sys/class/usb_notify/usb_control/disable
+    chmod 0664 /sys/class/usb_notify/usb_control/disable
 
-# Permissions for HW parameter
-    chown system system /sys/class/sec/tsp/ito_check
-    chown system system /sys/class/sec/tsp/raw_check
-    chown system system /sys/class/sec/tsp/multi_count
-    chown system system /sys/class/sec/tsp/wet_mode
-    chown system system /sys/class/sec/tsp/comm_err_count
-    chown system system /sys/class/sec/tsp/module_id
+    # usb hw param
+    chown system usb /sys/class/usb_notify/usb_control/usb_hw_param
+    chmod 0664 /sys/class/usb_notify/usb_control/usb_hw_param
+    chown system usb /sys/class/usb_notify/usb_control/hw_param
+    chmod 0664 /sys/class/usb_notify/usb_control/hw_param
 
-    # Change permission for dvfshelper
-    chown radio system /sys/power/cpufreq_table
-    chmod 0664 /sys/power/cpufreq_table
+    # usb whitelist
+    chown system usb /sys/class/usb_notify/usb_control/whitelist_for_mdm
+    chmod 0664 /sys/class/usb_notify/usb_control/whitelist_for_mdm
+
+    # ccic UVDM permission
+    chown system usb /dev/ccic_misc
+    chmod 0664 /dev/ccic_misc
+
+    # Change permission for input booster
+    chown system radio /sys/class/input_booster/level
+    chown system radio /sys/class/input_booster/head
+    chown system radio /sys/class/input_booster/tail
+    chown system radio /sys/class/input_booster/touchkey/level
+    chown system radio /sys/class/input_booster/touchkey/freq
+    chown system radio /sys/class/input_booster/touchkey/time
+    chmod 0664 /sys/class/input_booster/level
+    chmod 0664 /sys/class/input_booster/head
+    chmod 0664 /sys/class/input_booster/tail
+    chmod 0664 /sys/class/input_booster/touchkey/level
+    chmod 0664 /sys/class/input_booster/touchkey/freq
+    chmod 0664 /sys/class/input_booster/touchkey/time
+
+    # Permission for DVFS helper
     chown radio system /sys/power/cpufreq_min_limit
     chmod 0664 /sys/power/cpufreq_min_limit
     chown radio system /sys/power/cpufreq_max_limit
     chmod 0664 /sys/power/cpufreq_max_limit
-
-    chown radio system /sys/devices/system/cpu/kernel_max
-    chmod 0664 /sys/devices/system/cpu/kernel_max
 
  # permission for CHARGING
    mkdir /efs/Battery 0775 radio system
@@ -441,6 +231,7 @@ on boot
    chown system radio /sys/class/power_supply/battery/fg_full_voltage
    chown system radio /sys/class/power_supply/battery/batt_self_discharging_control
    chown system radio /sys/class/power_supply/battery/batt_inbat_wireless_cs100
+   chown system radio /sys/class/power_supply/battery/batt_swelling_control
    chmod 0664 /efs/Battery/fg_full_voltage
    chmod 0664 /sys/class/power_supply/battery/fg_full_voltage
    chown system radio /sys/class/power_supply/battery/batt_reset_soc
@@ -452,11 +243,13 @@ on boot
    chown system radio /sys/class/power_supply/battery/wc_enable
    chown system nfc /sys/class/power_supply/battery/wc_control
    chown system nfc /sys/class/power_supply/battery/wc_control_cnt
+   chown system nfc /sys/class/power_supply/battery/led_cover
    chown system radio /sys/class/power_supply/battery/update
    chown system radio /sys/class/power_supply/battery/batt_wdt_control
    chown system radio /sys/class/power_supply/battery/factory_mode_relieve
    chown system radio /sys/class/power_supply/battery/factory_mode_bypass
    chown system radio /sys/class/power_supply/battery/normal_mode_bypass
+   chown system radio /sys/class/power_supply/battery/factory_voltage_regulation
    chown media sdcard_rw /sys/class/power_supply/battery/store_mode
    chown sdcard_rw sdcard_rw /sys/class/power_supply/battery/call
    chown sdcard_rw sdcard_rw /sys/class/power_supply/battery/video
@@ -475,6 +268,7 @@ on boot
    chown system radio /sys/class/power_supply/ps/status
    chmod 0664 /sys/class/power_supply/battery/wc_control
    chmod 0664 /sys/class/power_supply/battery/wc_control_cnt
+   chmod 0664 /sys/class/power_supply/battery/led_cover
    chmod 0664 /sys/class/power_supply/ps/status
    chmod 0664 /sys/class/power_supply/battery/batt_temp_table
    chown system radio /sys/class/power_supply/battery/batt_temp_table
@@ -484,6 +278,7 @@ on boot
    chown system radio /sys/class/power_supply/battery/hmt_ta_connected
    chown system radio /sys/class/power_supply/battery/hmt_ta_charge
    chown system radio /sys/class/power_supply/battery/battery_cycle
+   chown system radio /sys/class/power_supply/battery/batt_after_manufactured
    chown system radio /sys/class/power_supply/otg/online
    chmod 0664 /sys/class/power_supply/otg/online
    chown system radio /sys/class/power_supply/max77833-charger/charge_otg_control
@@ -531,6 +326,7 @@ on boot
    chown system radio /sys/class/power_supply/battery/batt_tune_temp_low_rec_normal
    chown system radio /sys/class/power_supply/battery/batt_tune_ui_term_cur_1st
    chown system radio /sys/class/power_supply/battery/batt_tune_ui_term_cur_2nd
+   chown system radio /sys/class/power_supply/battery/batt_misc_event
    chmod 0664 /sys/class/power_supply/battery/batt_tune_chg_limit_cur
    chmod 0664 /sys/class/power_supply/battery/batt_tune_chg_temp_high
    chmod 0664 /sys/class/power_supply/battery/batt_tune_chg_temp_rec
@@ -550,66 +346,196 @@ on boot
    chmod 0664 /sys/class/power_supply/battery/batt_tune_temp_low_rec_normal
    chmod 0664 /sys/class/power_supply/battery/batt_tune_ui_term_cur_1st
    chmod 0664 /sys/class/power_supply/battery/batt_tune_ui_term_cur_2nd
+   chmod 0664 /sys/class/power_supply/battery/batt_misc_event
    chown system radio /sys/class/power_supply/battery/batt_filter_cfg
    chown system radio /sys/class/power_supply/battery/batt_current_ua_avg
    chown system radio /sys/class/power_supply/battery/batt_current_ua_now
    chown system radio /sys/class/power_supply/battery/voltage_avg
    chown system radio /sys/class/power_supply/battery/voltage_now
    chown system radio /sys/class/power_supply/battery/mode
+   chown system radio /sys/class/power_supply/battery/safety_timer_set
+   chown system radio /sys/class/power_supply/battery/safety_timer_info
    chmod 0664 /sys/class/power_supply/battery/mode
    chown system radio /sys/class/power_supply/battery/wc_op_freq
    chmod 0664 /sys/class/power_supply/battery/wc_op_freq
    chown system radio /sys/class/power_supply/battery/wc_cmd_info
    chmod 0664 /sys/class/power_supply/battery/wc_cmd_info
+   chown system radio /sys/class/power_supply/battery/batt_chip_id
+   chmod 0660 /sys/class/power_supply/battery/batt_chip_id
+   chown system radio /sys/class/power_supply/battery/error_cause
+   chmod 0440 /sys/class/power_supply/battery/error_cause
    chown system radio /sys/class/power_supply/battery/cisd_fullcaprep_max
    chmod 0660 /sys/class/power_supply/battery/cisd_fullcaprep_max
    chown system radio /sys/class/power_supply/battery/cisd_wire_count
    chmod 0660 /sys/class/power_supply/battery/cisd_wire_count
+   chown system radio /sys/class/power_supply/battery/batt_type
+   chmod 0660 /sys/class/power_supply/battery/batt_type
    chown system radio /sys/class/power_supply/battery/cisd_data
    chmod 0660 /sys/class/power_supply/battery/cisd_data
+   chown system radio /sys/class/power_supply/battery/cisd_data_json
+   chmod 0660 /sys/class/power_supply/battery/cisd_data_json
+   chown system radio /sys/class/power_supply/battery/cisd_data_d_json
+   chmod 0660 /sys/class/power_supply/battery/cisd_data_d_json
+   chown system system /efs/FactoryApp/cisd_fullcaprep_max
+   chmod 0640 /efs/FactoryApp/cisd_fullcaprep_max
+   chown system radio /sys/class/power_supply/battery/cisd_data_efs_path
+   chmod 0660 /sys/class/power_supply/battery/cisd_data_efs_path
    chown system system /efs/FactoryApp/cisd_data
    chmod 0640 /efs/FactoryApp/cisd_data
+   chown system radio /sys/class/power_supply/battery/cisd_wc_data
+   chmod 0660 /sys/class/power_supply/battery/cisd_wc_data
+   chown system radio /sys/class/power_supply/battery/cisd_wc_data_json
+   chmod 0660 /sys/class/power_supply/battery/cisd_wc_data_json
+   chown system system /efs/FactoryApp/cisd_wc_data
+   chmod 0640 /efs/FactoryApp/cisd_wc_data
+   chown radio system /efs/Battery/batt_capacity_max
+   chmod 0664 /efs/Battery/batt_capacity_max
 
-    # OTG Test
-    chown system radio /sys/class/host_notify/usb_otg/booster
-    chmod 0664 /sys/class/host_notify/usb_otg/booster
+#Meta event
+    chown system radio /sys/class/sensors/sensor_dev/flush
+    chown system system /sys/class/timed_output/vibrator/intensity
+    chown system system /sys/class/timed_output/vibrator/multi_freq
+    chown system system /sys/class/timed_output/vibrator/haptic_engine
+    chown system system /sys/class/timed_output/vibrator/force_touch_intensity
 
-    # Permission for CCIC
-    chown system radio /sys/class/sec/ccic/lpm_mode
-    chmod 0664 /sys/class/sec/ccic/lpm_mode
-    chown system system /sys/class/sec/ccic/control_gpio
-    chmod 0660 /sys/class/sec/ccic/control_gpio
-    chown system radio /sys/class/sec/ccic/fw_update
-    chmod 0220 /sys/class/sec/ccic/fw_update
-    chown system radio /sys/class/sec/ccic/role_swap
-    chmod 0220 /sys/class/sec/ccic/role_swap
-    chown system usb /sys/class/sec/ccic/dex_fan_uvdm
-    chown system usb /sys/class/sec/ccic/samsung_uvdm
-    chown system radio /sys/class/sec/ccic/ccic_control_option
-    chown system usb /dev/ccic_misc
-    chmod 0664 /dev/ccic_misc
-    chown system radio /sys/class/sec/ccic/cc_sbu_adc
-
-    # usb disable
-    chown system usb /sys/class/usb_notify/usb_control/disable
-    chmod 0664 /sys/class/usb_notify/usb_control/disable
-
-    # usb hw param
-    chown system usb /sys/class/usb_notify/usb_control/usb_hw_param
-    chmod 0664 /sys/class/usb_notify/usb_control/usb_hw_param
-    chown system usb /sys/class/usb_notify/usb_control/hw_param
-    chmod 0664 /sys/class/usb_notify/usb_control/hw_param
-    
     # HMT relay mode
     chown radio system /sys/devices/virtual/relay_on
-    chown radio system /sys/devices/virtual/data_on
+
+    # KNOX_NAP
+    chmod 0660 /dev/ncm_dev
+    chown system system /dev/ncm_dev
+
+#OTP
+    mkdir /data/otp 0700 system system
+
+# UFS
+    chown system system /sys/block/sda/device/model
+    chmod 444 /sys/block/sda/device/model
+    chown system system /sys/block/sda/device/rev
+    chmod 444 /sys/block/sda/device/rev
+    chown system system /sys/class/scsi_host/host0/lt
+    chmod 444 /sys/class/scsi_host/host0/lt
+    chown system system /sys/class/scsi_host/host0/SEC_UFS_err_sum
+    chmod 444 /sys/class/scsi_host/host0/SEC_UFS_err_sum
+    chown system system /sys/class/scsi_host/host0/SEC_UFS_op_cnt
+    chmod 444 /sys/class/scsi_host/host0/SEC_UFS_op_cnt
+    chown system system /sys/class/scsi_host/host0/SEC_UFS_query_cnt
+    chmod 444 /sys/class/scsi_host/host0/SEC_UFS_query_cnt
+    chown system system /sys/class/scsi_host/host0/SEC_UFS_uic_cmd_cnt
+    chmod 444 /sys/class/scsi_host/host0/SEC_UFS_uic_cmd_cnt
+    chown system system /sys/class/scsi_host/host0/SEC_UFS_uic_err_cnt
+    chmod 444 /sys/class/scsi_host/host0/SEC_UFS_uic_err_cnt
+    chown system system /sys/class/scsi_host/host0/SEC_UFS_utp_cnt
+    chmod 444 /sys/class/scsi_host/host0/SEC_UFS_utp_cnt
+    chown system system /sys/class/scsi_host/host0/SEC_UFS_fatal_cnt
+    chmod 444 /sys/class/scsi_host/host0/SEC_UFS_fatal_cnt
+    chown system system /sys/block/sda/diskios
+    chmod 660 /sys/block/sda/diskios
+    chown system system /sys/class/scsi_host/host0/unique_number
+    chmod 440 /sys/class/scsi_host/host0/unique_number
+
+# eMMC/SD
+    chown system system /sys/block/mmcblk0/device/unique_number
+    chmod 440 /sys/block/mmcblk0/device/unique_number
+    chown system system /sys/block/mmcblk0/device/cid
+    chmod 444 /sys/block/mmcblk0/device/cid
+    chown system system /sys/block/mmcblk1/device/cid
+    chmod 444 /sys/block/mmcblk1/device/cid
+    chown system system /sys/class/sec/sdcard/cd_cnt
+    chmod 444 /sys/class/sec/sdcard/cd_cnt
+    chown system system /sys/class/sec/sddata/sd_data
+    chmod 444 /sys/class/sec/sddata/sd_data
+
+    # h2k
+    mkdir /efs/cpk 0771 radio system
+    chmod 0644 /efs/redata.bin
+    chmod 0644 /efs/cpk/redata.bin
+    chown radio radio /efs/h2k.dat
+    chown radio radio /efs/cpk/h2k.dat
+    chmod 0644 /efs/h2k.dat
+    chmod 0644 /efs/cpk/h2k.dat
+    chown system system /efs/drm/h2k
+
+    # Permissions for Touchscreen
+    chown system radio /sys/class/sec/tsp/cmd
+    chown system system /sys/class/sec/tsp/input/enabled
+    chmod 0660 /sys/class/sec/tsp/input/enabled
+    chown root system /proc/tsp_msg
+    chmod 0440 /proc/tsp_msg
+    chown system radio /sys/class/sec/tsp/pressure_enable
+    chown system system /sys/class/sec/tsp/multi_count
+    chown system system /sys/class/sec/tsp/wet_mode
+    chown system system /sys/class/sec/tsp/noise_mode
+    chown system system /sys/class/sec/tsp/comm_err_count
+    chown system system /sys/class/sec/tsp/checksum
+    chown system system /sys/class/sec/tsp/holding_time
+    chown system system /sys/class/sec/tsp/all_touch_count
+    chown system system /sys/class/sec/tsp/z_value
+    chown system system /sys/class/sec/tsp/sensitivity_mode
+    chown system system /sys/class/sec/tsp/prox_power_off
+    chown system system /dev/tspio
+
+    # Permissions for Touchkey
+    chmod 0660 /sys/class/sec_touchkey/input/enabled
+    chown system system /sys/class/sec/sec_touchkey/input/enabled
+    chown system radio /sys/class/sec/sec_touchkey/brightness
+    chown system radio /sys/class/sec/sec_touchkey/touchkey_firm_update
+    chown system radio /sys/class/sec/sec_touchkey/touch_sensitivity
+    chown system radio /sys/class/sec/sec_touchkey/glove_mode
+    chown system radio /sys/class/sec/sec_touchkey/flip_mode
+    chown system radio /sys/class/sec/sec_touchkey/sar_enable
+    chown system radio /sys/class/sec/sec_touchkey/sw_reset
+    chown system radio /sys/class/sec/sec_touchkey/touchkey_earjack
+    chown system radio /sys/class/sec/sec_touchkey/grip_irq_count
+    chown system radio /sys/class/sec/sec_touchkey/touchkey_light_version
+    chown system radio /sys/class/sec/sec_touchkey/touchkey_light_update
+    chown system radio /sys/class/sec/sec_touchkey/touchkey_light_id_compare
+    chown system radio /sys/class/sec/sec_touchkey/touchkey_light_table_write
+
+    # Wacom
+    chown system system /sys/class/sec/sec_epen/input/enabled
+    chmod 0660 /sys/class/sec/sec_epen/input/enabled
+    chown system radio /sys/class/sec/sec_epen/epen_firm_update
+    chown system radio /sys/class/sec/sec_epen/epen_reset
+    chown system radio /sys/class/sec/sec_epen/epen_reset_result
+    chown system radio /sys/class/sec/sec_epen/epen_checksum
+    chown system radio /sys/class/sec/sec_epen/epen_checksum_result
+    chown system radio /sys/class/sec/sec_epen/epen_saving_mode
+    chown system radio /sys/class/sec/sec_epen/epen_wcharging_mode
+    chown system radio /sys/class/sec/sec_epen/epen_ble_charging_mode
+    chown system radio /sys/class/sec/sec_epen/keyboard_mode
+    chown system radio /sys/class/sec/sec_epen/epen_disable_mode
+    chown system radio /sys/class/sec/sec_epen/aod_enable
+    chown system radio /sys/class/sec/sec_epen/screen_off_memo_enable
+    chown system radio /sys/class/sec/sec_epen/dex_enable
+    chown system radio /sys/class/sec/sec_epen/epen_fac_garage_mode
+    chown system system /sys/class/sec/sec_epen/abnormal_reset_count
+    chown system system /sys/class/sec/sec_epen/i2c_fail_count
+
+    # Key
+    chown system radio /sys/class/sec/sec_key/wakeup_keys
+    write /sys/class/sec/sec_key/wakeup_keys 116,172
+
+    # Permissions for Auto Input
+    chown system system /sys/class/sec/sec_auto_input/enable
+    chown system system /sys/class/sec/sec_auto_input/tsp_event
+
+    # sec abc
+    chown system radio /sys/class/sec/sec_abc/enabled
+    chmod 0664 /sys/class/sec/sec_abc/enabled
+    chown system radio /sys/class/sec/sec_abc/log
+    chmod 0664 /sys/class/sec/sec_abc/log
+    chown system radio /sys/class/sec/sec_abc_hub/enable
+    chmod 0664 /sys/class/sec/sec_abc_hub/enable
+
+    #SideSync
+    chown system system /dev/android_ssusbcon
+    chmod 0660 /dev/android_ssusbcon
 
 on nonencrypted
     # mobicore
     mkdir /data/misc/mcRegistry 0775 system system
-    class_start main
-    class_start late_start
-    
+
 on charger
     chmod 0664 /sys/class/power_supply/battery/batt_temp_table
     chown system radio /sys/class/power_supply/battery/batt_temp_table
@@ -639,65 +565,18 @@ on charger
     copy /system/vendor/firmware/battery_data.dat /efs/Battery/battery_data.dat
     chmod 0400 /efs/Battery/battery_data.dat
     write /sys/class/power_supply/battery/batt_update_data "/efs/Battery/battery_data.dat"
-    class_start charger
 
-on property:vold.decrypt=trigger_restart_framework
-    # mobicore
-    mkdir /data/misc/mcRegistry 0775 system system
-    class_start main
-    class_start late_start
+on property:vold.decrypt=trigger_load_persist_props
+    start scs
+    start sysmon
 
-# deferred initcall
-service sec-sh /system/bin/sh /system/etc/init.sec.boot.sh
-    class core
-    user root
-    oneshot
+on property:vold.decrypt=trigger_shutdown_framework
+    class_reset late_start
+    class_reset main
 
 # MobiCore startup
-service mobicore /vendor/bin/mcDriverDaemon -r /vendor/app/mcRegistry/FFFFFFFF000000000000000000000001.drbin -r /vendor/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin -r /vendor/app/mcRegistry/ffffffffd00000000000000000000016.tlbin -r /vendor/app/mcRegistry/ffffffffd0000000000000000000001c.tlbin
+service mobicore /system/bin/mcDriverDaemon -r /system/app/FFFFFFFF000000000000000000000001.drbin -r /system/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin -r /system/app/mcRegistry/ffffffffd00000000000000000000016.tlbin
     class core
     user system
     group system
     disabled
-
-# strongSwan VPN
-service charon /system/bin/charon
-    class main
-    socket charon stream 600 system system
-    # charon will setuid to vpn after getting necessary resources.
-    group vpn net_admin inet shell
-    disabled
-    oneshot
-
-# IO stats Deamon
-service iod /system/bin/iod
-    user system
-    group shell
-    class main
-    oneshot
-    disabled
-
-on property:sys.boot_completed=1
-    start iod
-
-# icd
-on property:init.svc.media=restarting
-#~ check_icd
-    start icd
-
-# Sensorhub service
-service sensorhubservice /system/bin/sensorhubservice
-    class main
-    user system
-    group input
-
-#preparefbe
-service preparefbe_ce /system/bin/preparefbe storage_ce
-    oneshot
-    disabled
-service preparefbe_de /system/bin/preparefbe storage_de
-    oneshot
-    disabled
-
-on property:sys.sf.restart=1
-    restart surfaceflinger

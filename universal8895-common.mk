@@ -28,6 +28,7 @@ PRODUCT_PACKAGES += \
     fstab.samsungexynos8895 \
     init.baseband.rc \
     init.bluetooth.rc \
+	init.carrier.rc \
     init.gps.rc \
     init.recovery.usb.rc \
     init.rilchip.rc \

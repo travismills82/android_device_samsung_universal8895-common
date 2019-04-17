@@ -23,19 +23,15 @@ on fs
     chown radio system /cpefs
     chmod 0771 /cpefs
 
-    #For cpdebug partition
-    wait /dev/block/platform/11120000.ufs/by-name/EFS
-    mkdir /efs/cpdebug
-    chown radio system /efs/cpdebug
-    chmod 0771 /efs/cpdebug
-    symlink /dev/block/platform/11120000.ufs/by-name/CP_DEBUG /efs/cpdebug/node
-    chown radio system /efs/cpdebug/node
-    chmod 0771 /efs/cpdebug/node
-
 on post-fs-data
     # For Samsung members
     chmod 0775 /data/log/err
     chown radio radio /data/log/err
+
+service cpboot-daemon /sbin/cbd -d -tss310 -bm -mm -P platform/11120000.ufs/by-name/RADIO -c platform/11120000.ufs/by-name/CP_DEBUG
+    class main
+    user root
+    group radio cache inet misc audio sdcard_rw log sdcard_r shell
 
 # SS/DS configuration
 on property:ro.multisim.simslotcount=*
@@ -47,16 +43,3 @@ on property:ro.multisim.simslotcount=1
 on property:ro.multisim.simslotcount=2
     setprop persist.radio.multisim.config dsds
 
-# Parse hardware revision (needs to happen before cbd starts)
-service modemloader /system/bin/modemloader
-    class core
-    oneshot
-
-service cpboot-daemon /vendor/bin/cbd -d -tss310 -bm -mm -P platform/11120000.ufs/by-name/RADIO -n /efs
-    class main
-    user root
-    group radio cache inet misc audio sdcard_rw log sdcard_r shell system
-    seclabel u:r:cbd:s0
-
-on property:ro.modemloader.done=1
-    start cpboot-daemon

@@ -26,6 +26,9 @@ chown gps system /sys/devices/platform/bbd.0/ssi_count
 chown gps system /sys/devices/platform/bbd.0/ssi_trace
 chown gps system /sys/devices/platform/bbd.0/shmd
 
+write /data/system/gps/secgps.conf ""
+chown system system /data/system/gps/secgps.conf
+
 # SensorHub (Location Hub)
 service lhd /vendor/bin/hw/lhd /vendor/etc/sensor/lhd.conf
     class main
@@ -39,4 +42,8 @@ service gpsd /vendor/bin/hw/gpsd -c /vendor/etc/gnss/gps.xml
     user gps
     group system inet net_raw wakelock
     ioprio be 0
-    seclabel u:r:gpsd:s0
+    disabled
+
+on property:init.svc.bootanim=stopped
+    # start gpsd late to prevent it from changing /data/system
+    start gpsd
