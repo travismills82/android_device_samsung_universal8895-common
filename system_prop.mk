@@ -43,11 +43,18 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.bq.gpu_to_cpu_unsupported=1 \
     ro.opengles.version=196610 \
-    ro.sf.lcd_density=480
+    ro.sf.lcd_density=560
     
 # HWC
-debug.hwc.force_gpu=1
-ro.sf.disable_triple_buffer=0
+PRODUCT_PROPERTY_OVERRIDES += \
+	debug.hwc.force_gpu=1 \
+	debug.hwc.winupdate=1 \
+	debug.hwc.otf=1 \
+	debug.hwui.use_buffer_age=false \
+	debug.egl.hw=0 \
+	debug.sf.hw=0 \
+	persist.sys.ui.hw=false \
+	ro.sf.disable_triple_buffer=0
 
 # Network
 # Define default initial receive window size in segments.
@@ -58,10 +65,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.nfc.port="I2C" \
     ro.nfc.sec_hal=true
+
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.add_power_save=1 \
     persist.radio.apm_sim_not_pwdn=1 \
+	persist.radio.sib16_support=1 \
+	vendor.sec.rild.libpath=/vendor/lib64/libsec-ril.so \
+    vendor.sec.rild.libpath2=/vendor/lib64/libsec-ril-dsds.so \
     rild.libpath=/system/lib64/libsec-ril.so \
     rild.libpath2=/system/lib64/libsec-ril-dsds.so \
     ro.telephony.default_network=9 \
@@ -69,7 +80,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.hsxpa=1 \
     ro.ril.telephony.mqanelements=6 \
     telephony.lteOnGsmDevice=1 \
-    telephony.lteOnCdmaDevice=0
+    telephony.lteOnCdmaDevice=0 \
+	ro.telephony.get_imsi_from_sim=true \
+	ro.ril.force_eri_from_xml=true
 
 # Wifi
 PRODUCT_PROPERTY_OVERRIDES += \
