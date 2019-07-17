@@ -116,7 +116,7 @@ vendor/lib/libbauthtzcommon.so
 lib/libtlc_direct_comm.so
 lib/libtlc_tima_atn.so
 lib/libtlc_tz_esecomm.so
-vendor/lib/liboemcrypto.so
+#vendor/lib/liboemcrypto.so
 lib/libtlc_tima_pkm.so
 lib64/libtlc_comm.so
 lib/libtlc_comm.so
@@ -134,9 +134,9 @@ lib64/libfloatingfeature.so
 # Graphics
 vendor/lib/egl/libGLES_mali.so
 vendor/lib64/egl/libGLES_mali.so
-vendor/lib/libOpenCL.so
+#vendor/lib/libOpenCL.so
 #vendor/lib/libOpenCv.so
-vendor/lib64/libOpenCL.so
+#vendor/lib64/libOpenCL.so
 #vendor/lib64/libOpenCv.so
 lib/libacryl.so
 lib64/libacryl.so
@@ -217,8 +217,8 @@ app/mcRegistry/ffffffffd00000000000000000000004.tlbin
 app/mcRegistry/ffffffffd00000000000000000000017.tlbin
 app/mcRegistry/fffffffff0000000000000000000001b.tlbin
 vendor/bin/mcDriverDaemon
-vendor/lib/libMcRegistry.so
-vendor/lib64/libMcRegistry.so
+lib/libMcRegistry.so
+lib64/libMcRegistry.so
 vendor/lib/libMcClient.so
 vendor/lib64/libMcClient.so
 
